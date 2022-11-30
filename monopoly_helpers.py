@@ -122,18 +122,24 @@ def move_one_round(playerOrder: tuple, state: tuple) -> tuple:
         pList[2] = temp % grid
         newpTuple = tuple(pList)
         playerlist[ind[i]] = newpTuple 
-        pList = []
  
     return (playerlist, boardlist)
 
 def winner_of(player: list) -> int:
-    golddict = {}
     winner = 0
+    max = 0
     for i in range(n):
         hp_gold = 15 * player[i][1] 
-        golddict[i] = player[i][0] + hp_gold
-    print(golddict)
-    return 0
+        plist = list(player[i])
+        plist[0] = player[i][0] + hp_gold
+        if plist[0] >= max:
+            max = plist[0] 
+            winner = i
+        plist[1] = 0
+        newpTuple = tuple(pList)
+        player[i] = newpTuple 
+        
+    return winner
 
 winner_of([(50, 5, 0), (50, 5, 0)])
 # v = player_nextround_order(1)
