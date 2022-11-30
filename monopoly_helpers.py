@@ -125,6 +125,14 @@ def move_one_round(playerOrder: tuple, state: tuple) -> tuple:
  
     return (playerlist, boardlist)
 
+def valid_actions(state: tuple) -> tuple:
+    playerlist = state[0]
+    boardlist = state[1]
+    # open lucky box
+    # grid occupy
+    # pay tolls
+    return (playerlist, boardlist)
+
 def winner_of(player: list) -> int:
     winner = 0
     max = 0
