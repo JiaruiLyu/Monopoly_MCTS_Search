@@ -2,6 +2,10 @@ from Player import *
 from BoardCell import *
 import random
 
+class Game:
+    def __init__(self):
+        self.turn = 0
+
 # global variable
 n = 2  # initialize the number of players (fixed to be 2)
 #grid = random.randint(25, 40) # initialize the number of grids(random from 25 to 40)
