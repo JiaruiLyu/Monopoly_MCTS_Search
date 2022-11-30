@@ -26,6 +26,8 @@ def boardIndex(grids: int) -> list:
     return boardIndexlist  
 
 def initial_state() -> tuple:
+    print("Welcome to Monopoly!")
+
     global grid
     tempgrid = grid
 
