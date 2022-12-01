@@ -9,6 +9,8 @@ class BoardCell:
       self.playerID = playerID
       self.ruleB = ruleB
       self.amountB = amountB
+
+      self.price = 100
       BoardCell.cCount += 1
    
    def __call__(self, cCount):

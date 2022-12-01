@@ -1,4 +1,5 @@
-from monopoly_helpers import *
+from Game import *
 
 if __name__ == "__main__":
-	initial_state()  
+	game = Game()
+
