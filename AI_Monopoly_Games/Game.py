@@ -2,10 +2,12 @@ from Player import Player
 from BoardCell import BoardCell
 import random
 
+# Based on Jiarui's 0.1.3 version
+
 class Game:
     def __init__(self):
         # Initialize the board, players, and all the game stats
-        self.turn = 0
+        self.round_count = 0
 
         self.player_count = 2
         self.grid_size = 28
@@ -38,15 +40,12 @@ class Game:
         ind = playerOrder[0]
         addup = playerOrder[1]
 
-        for i in range(self.player_count):   
+        for i in range(n):   
             pList = list(playerlist[ind[i]])
             temp = pList[2] + addup[i]
-            pList[2] = temp % self.grid_size
+            pList[2] = temp % grid
             newpTuple = tuple(pList)
             playerlist[ind[i]] = newpTuple 
-            pList = []
-    
-        return (playerlist, boardlist)
 
     # Return True if the game is over, and False otherwise.
     # The game is over if any user has 0 hp and cant pay the tolls
@@ -106,6 +105,37 @@ class Game:
             res[boxSpots[i]] = (newCellTuple, res[boxSpots[i]][1])
 
         return res
+
+
+    # Player Related 
+    def valid_actions(self, state: tuple) -> tuple:
+        playerlist = self.player_list
+        boardlist = self.board_list
+        # open lucky box
+        # grid occupy
+        # pay tolls
+        return (playerlist, boardlist)
+
+    # End of Game Related
+
+    # return the winner of the game.
+    # check each player's stats, calculate total score by hp and gold
+    # return the player with the highest score
+    def winner_of(self) -> int:
+        playerlist = self.player_list
+        n = self.player_count
+        winner = 0
+        max = 0
+
+        for i in range(n):
+            hp_gold = 15 * playerlist[i][1] 
+            player_score = playerlist[i][0] + hp_gold
+            if player_score >= max:
+                max = player_score 
+                winner = i
+            
+        return winner
+
 
 # Return a string representation of num that is always two characters wide.
 # Assume num is either one or two digits long.
