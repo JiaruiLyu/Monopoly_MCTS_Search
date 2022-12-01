@@ -1,1 +1,1 @@
-python3 play_monoply.py
+python3 AI_Monopoly_Games/play_monoply.py
