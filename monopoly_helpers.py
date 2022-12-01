@@ -2,7 +2,7 @@ from Player import *
 from BoardCell import *
 import random
 
-# global variable
+### global variable ###
 n = 2  # initialize the number of players (fixed to be 2)
 #grid = random.randint(25, 40) # initialize the number of grids(random from 25 to 40)
 grid = 28 # temporary set for test
@@ -16,15 +16,22 @@ def pad(num: int) -> str:
 
     return str(num).zfill(2) 
 
-# Return a list that stores each grid's index
-def boardIndex(grids: int) -> list:
+# Player has to use gold to occupy the grid, each grid's value is randomly generated from 10 to 18
+# The tolls value of each grid will be equal to 1/3 of the grid value
+def board_grid_value(grids: int) -> tuple:
+    gridIndex = [] # a list stores each grid's index
+    gridValue = [] # a list stores each grid's value
+    gridToll = [] # a list stores the amount of tolls that needs to be paid for the player who arrived here(if the grid is occupied)
 
-    boardIndexlist = []
     for i in range(grids):
-        boardIndexlist.append(i) # initilize boardIndex  
+        value = random.randint(10, 18)
+        gridIndex.append(i)
+        gridValue.append(value)
+        gridToll.append(int(value/3))
 
-    return boardIndexlist  
+    return (gridIndex, gridValue, gridToll)
 
+# Initial playerlist and boardlist
 def initial_state() -> tuple:
     global grid
     tempgrid = grid
@@ -62,6 +69,26 @@ def game_over(state: tuple) -> bool:
 
     return bool(checkhp)
 
+def drop_lucky_box(state: tuple) -> list: 
+    global grid
+    tempgrid = grid
+    
+    boxes = random.randint(int(tempgrid/8), int(tempgrid/5)) # initialize the number of lucky boxes (randomly droped)
+    
+    res = state[1]
+
+    indexList = board_grid_value(tempgrid)[0]
+    boxSpots = random.sample(indexList, boxes)
+    cellList = []
+    for i in range(len(boxSpots)):
+        cellList = list(res[boxSpots[i]][0])
+        cellList[0] = 1
+        newCellTuple = tuple(cellList)
+
+        res[boxSpots[i]] = (newCellTuple, res[boxSpots[i]][1])
+
+    return res
+
 def player_nextround_order(roundnum: int) -> tuple:
    
     orderlist = [] #存储的是playerindex，按顺序的
@@ -85,28 +112,7 @@ def player_nextround_order(roundnum: int) -> tuple:
 
     global roundcount
     roundcount = roundnum+1
-    print ((orderlist, dicenumlist))
     return (orderlist, dicenumlist) 
-
-def drop_lucky_box(state: tuple) -> list: 
-    global grid
-    tempgrid = grid
-    
-    boxes = random.randint(int(tempgrid/8), int(tempgrid/5)) # initialize the number of lucky boxes (randomly droped)
-    
-    res = state[1]
-
-    indexList = boardIndex(tempgrid)
-    boxSpots = random.sample(indexList, boxes)
-    cellList = []
-    for i in range(len(boxSpots)):
-        cellList = list(res[boxSpots[i]][0])
-        cellList[0] = 1
-        newCellTuple = tuple(cellList)
-
-        res[boxSpots[i]] = (newCellTuple, res[boxSpots[i]][1])
-
-    return res
 
 def move_one_round(playerOrder: tuple, state: tuple) -> tuple:
 
@@ -125,55 +131,69 @@ def move_one_round(playerOrder: tuple, state: tuple) -> tuple:
  
     return (playerlist, boardlist)
 
-def valid_actions(state: tuple) -> tuple:
+# [grid position, can open lucky box, grid can be occupied] = [?, 1, 1]
+def valid_actions(state: tuple) -> list:
     playerlist = state[0]
     boardlist = state[1]
-    # open lucky box
-    # grid occupy
-    # pay tolls
-    return (playerlist, boardlist)
+    actions_check = []
+    for i in range(len(playerlist)):
+        checklist = [-1, 0, 0]
+        pos = playerlist[i][2]
+        bcell = boardlist[pos]
+        checklist[0] = pos
+        if bcell[0][0] == 1: # luckybox droped here
+            checklist[1] = 1
+        if bcell[1][0] == 0: # no one occupy here
+            checklist[2] = 1
+        actions_check.append(checklist)
+
+    return actions_check
 
 def winner_of(player: list) -> int:
     winner = 0
     max = 0
     for i in range(n):
-        hp_gold = 15 * player[i][1] 
+        hp_gold = 12 * player[i][1] 
         plist = list(player[i])
         plist[0] = player[i][0] + hp_gold
         if plist[0] >= max:
             max = plist[0] 
             winner = i
         plist[1] = 0
-        newpTuple = tuple(pList)
+        newpTuple = tuple(plist)
         player[i] = newpTuple 
-        
+    
     return winner
 
-winner_of([(50, 5, 0), (50, 5, 0)])
 # v = player_nextround_order(1)
-# s = ([(50, 5, 0), (50, 5, 0)], [((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+# s = ([(50, 5, 3), (50, 5, 2)], [((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
 #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0))])
+# valid_actions(s)
 # move_one_round(v, s)
 
-# Return a string representation of the index of all boardcells  
+# Return a string of 4 digits. 
+# first 2 digits: represent the index of all boardcells. 
+# 3rd digit: represent whether this grid has lucky box or not (0: no lucky box. 1: has lucky box)
+# 4th digit: represent whether this grid is occupied or not (0: no one occupied. 1: someone occupied)
+
 # The string has three indented lines of text.
 # The numbers should be padded and evenly spaced.
 # If the number of grid is even (eg. 28), the string representation should be like:
 # 
-#            00 01 02 03 04 05 06 07 08 09 10 11 12
-#         27                                        13
-#            26 25 24 23 22 21 20 19 18 17 16 15 14
+#              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
+#         2700                                                                  1300
+#              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
 # 
 # If the number of grid is odd (eg. 27), the string representation should be like:
 # 
-#            00 01 02 03 04 05 06 07 08 09 10 11 12
-#                                                   13
-#            26 25 24 23 22 21 20 19 18 17 16 15 14
+#              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
+#                                                                               1300
+#              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
 # 
 # Excluding the leading comment symbols "# " above, all blank space should match exactly:
 #   There are exactly 8 blank spaces before the left (padded) number.
@@ -185,36 +205,40 @@ def string_of_boardIndex(board: list) -> str:
     if(grid % 2 == 0):
         edgeline = int(grid/2) # the number of grids in line 1 (= line 3)
 
-        line1 = [pad(i) for i in range(0, edgeline-1, 1)]
+        line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
         newline1 = " ".join(line1)
-        newline1 = '\n           ' + newline1 
+        newline1 = '\n             ' + newline1 
         
         line2insert = ' '
         for i in range (0, edgeline - 1):
-            line2insert += '   '
+            line2insert += '     '
 
-        line3 = [pad(i) for i in range(grid-2, edgeline-1, -1)]
+        line2start = pad(grid-1)+str(board[1][grid-1][0][0])+str(board[1][grid-1][1][0])
+        line2end = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
+
+        line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-2, edgeline-1, -1)]
         newline3 = " ".join(line3)
-        newline3 = '\n           ' + newline3
+        newline3 = '\n             ' + newline3
 
-        outstr = newline1 +'\n        '+ pad(grid-1) + line2insert + pad(edgeline-1)+ newline3+'\n'
+        outstr = newline1 +'\n        '+ line2start + line2insert + line2end + newline3+'\n'
 
     # the number of grids is odd
     else:
         edgeline = int(grid/2 + 1) # the number of grids in line 1 (= line 3)
 
-        line1 = [pad(i) for i in range(0, edgeline-1, 1)]
+        line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
         newline1 = " ".join(line1)
-        newline1 = '\n           ' + newline1 
+        newline1 = '\n             ' + newline1 
         
         line2insert = ' '
         for i in range (0, edgeline - 1):
-            line2insert += '   '
+            line2insert += '     '
+        line2new = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
 
-        line3 = [pad(i) for i in range(grid-1, edgeline-1, -1)]
+        line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-1, edgeline-1, -1)]
         newline3 = " ".join(line3)
-        newline3 = '\n           ' + newline3
+        newline3 = '\n             ' + newline3
 
-        outstr = newline1 +'\n          '+ line2insert + pad(edgeline-1) + newline3+'\n'
-
+        outstr = newline1 +'\n          '+ line2insert + line2new + newline3+'\n'
+    print(outstr)
     return outstr
