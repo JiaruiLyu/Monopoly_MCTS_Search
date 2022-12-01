@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         self.round_count = 0
         self.player_count = 2
-        self.grid_size = 28
+        self.grid_size = 20
         self.user_turn = 0  # 0 means player 0's turn, 1 means player 1's turn, etc.
 
         self.player_list = [] # list of Player objects
@@ -36,6 +36,10 @@ class Game:
         box_spots = random.sample(self.board_list, box_count)
         for cell in box_spots:
             cell.set_lucky_box(random.randint(2, 5))
+
+    def print_info(self):
+        for cell in self.board_list:
+            print(cell.to_string())
 
     ### TODO ###
     def move_one_round(self, playerOrder: tuple, state: tuple) -> tuple:
@@ -92,7 +96,6 @@ class Game:
         return (playerlist, boardlist)
 
     # ==== End of Game Related ====
-
     # Return True if the game is over, and False otherwise.
     # The game is over if any user has 0 hp and cant pay the tolls
     def game_over(self) -> bool:
@@ -121,14 +124,87 @@ class Game:
                 winner = i
         return winner
 
-    # Return a list that stores each grid's index
-    def boardIndex(self) -> list:
+    ## TODO ##
+    # v = player_nextround_order(1)
+    # s = ([(50, 5, 3), (50, 5, 2)], [((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
+    #     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0))])
+    # valid_actions(s)
+    # move_one_round(v, s)
 
-        boardIndexlist = []
-        for i in range(self.grid_size):
-            boardIndexlist.append(i) # initilize boardIndex  
+    # Return a string of 4 digits. 
+    # first 2 digits: represent the index of all boardcells. 
+    # 3rd digit: represent whether this grid has lucky box or not (0: no lucky box. 1: has lucky box)
+    # 4th digit: represent whether this grid is occupied or not (0: no one occupied. 1: someone occupied)
 
-        return boardIndexlist  
+    # The string has three indented lines of text.
+    # The numbers should be padded and evenly spaced.
+    # If the number of grid is even (eg. 28), the string representation should be like:
+    # 
+    #              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
+    #         2700                                                                  1300
+    #              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
+    # 
+    # If the number of grid is odd (eg. 27), the string representation should be like:
+    # 
+    #              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
+    #                                                                               1300
+    #              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
+    # 
+    # Excluding the leading comment symbols "# " above, all blank space should match exactly:
+    #   There are exactly 8 blank spaces before the left (padded) number.
+    #   There is exactly 1 blank space between each (padded) pit number.
+    #   The returned string should start and end with new-line characters ("\n")
+    def string_of_boardIndex(self) -> str:
+
+        grid = self.grid_size
+    
+        # the number of grids is even
+        
+        if(grid % 2 == 0):
+            edgeline = int(grid/2) # the number of grids in line 1 (= line 3)
+
+            line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
+            newline1 = " ".join(line1)
+            newline1 = '\n             ' + newline1 
+            
+            line2insert = ' '
+            for i in range (0, edgeline - 1):
+                line2insert += '     '
+
+            line2start = pad(grid-1)+str(board[1][grid-1][0][0])+str(board[1][grid-1][1][0])
+            line2end = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
+
+            line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-2, edgeline-1, -1)]
+            newline3 = " ".join(line3)
+            newline3 = '\n             ' + newline3
+
+            outstr = newline1 +'\n        '+ line2start + line2insert + line2end + newline3+'\n'
+
+        # the number of grids is odd
+        else:
+            edgeline = int(grid/2 + 1) # the number of grids in line 1 (= line 3)
+
+            line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
+            newline1 = " ".join(line1)
+            newline1 = '\n             ' + newline1 
+            
+            line2insert = ' '
+            for i in range (0, edgeline - 1):
+                line2insert += '     '
+            line2new = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
+
+            line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-1, edgeline-1, -1)]
+            newline3 = " ".join(line3)
+            newline3 = '\n             ' + newline3
+
+            outstr = newline1 +'\n          '+ line2insert + line2new + newline3+'\n'
+        print(outstr)
+        return outstr
 
 # Return a string representation of num that is always two characters wide.
 # Assume num is either one or two digits long.
@@ -136,82 +212,3 @@ class Game:
 # For example, pad(12) is "12", and pad(1) is "01".
 def pad(num: int) -> str:
     return str(num).zfill(2) 
-
-
-# v = player_nextround_order(1)
-# s = ([(50, 5, 3), (50, 5, 2)], [((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), 
-#     ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0))])
-# valid_actions(s)
-# move_one_round(v, s)
-
-# Return a string of 4 digits. 
-# first 2 digits: represent the index of all boardcells. 
-# 3rd digit: represent whether this grid has lucky box or not (0: no lucky box. 1: has lucky box)
-# 4th digit: represent whether this grid is occupied or not (0: no one occupied. 1: someone occupied)
-
-# The string has three indented lines of text.
-# The numbers should be padded and evenly spaced.
-# If the number of grid is even (eg. 28), the string representation should be like:
-# 
-#              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
-#         2700                                                                  1300
-#              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
-# 
-# If the number of grid is odd (eg. 27), the string representation should be like:
-# 
-#              0000 0100 0200 0300 0400 0500 0600 0700 0800 0900 1000 1100 1200
-#                                                                               1300
-#              2600 2500 2400 2300 2200 2100 2000 1900 1800 1700 1600 1500 1400
-# 
-# Excluding the leading comment symbols "# " above, all blank space should match exactly:
-#   There are exactly 8 blank spaces before the left (padded) number.
-#   There is exactly 1 blank space between each (padded) pit number.
-#   The returned string should start and end with new-line characters ("\n")
-def string_of_boardIndex(board: list) -> str:
-   
-    # the number of grids is even
-    if(grid % 2 == 0):
-        edgeline = int(grid/2) # the number of grids in line 1 (= line 3)
-
-        line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
-        newline1 = " ".join(line1)
-        newline1 = '\n             ' + newline1 
-        
-        line2insert = ' '
-        for i in range (0, edgeline - 1):
-            line2insert += '     '
-
-        line2start = pad(grid-1)+str(board[1][grid-1][0][0])+str(board[1][grid-1][1][0])
-        line2end = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
-
-        line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-2, edgeline-1, -1)]
-        newline3 = " ".join(line3)
-        newline3 = '\n             ' + newline3
-
-        outstr = newline1 +'\n        '+ line2start + line2insert + line2end + newline3+'\n'
-
-    # the number of grids is odd
-    else:
-        edgeline = int(grid/2 + 1) # the number of grids in line 1 (= line 3)
-
-        line1 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(0, edgeline-1, 1)]
-        newline1 = " ".join(line1)
-        newline1 = '\n             ' + newline1 
-        
-        line2insert = ' '
-        for i in range (0, edgeline - 1):
-            line2insert += '     '
-        line2new = pad(edgeline-1)+str(board[1][edgeline-1][0][0])+str(board[1][edgeline-1][1][0])
-
-        line3 = [pad(i)+str(board[1][i][0][0])+str(board[1][i][1][0]) for i in range(grid-1, edgeline-1, -1)]
-        newline3 = " ".join(line3)
-        newline3 = '\n             ' + newline3
-
-        outstr = newline1 +'\n          '+ line2insert + line2new + newline3+'\n'
-    print(outstr)
-    return outstr

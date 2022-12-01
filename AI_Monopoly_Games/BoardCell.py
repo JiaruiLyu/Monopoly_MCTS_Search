@@ -12,6 +12,18 @@ class BoardCell:
 
    def print_info(self):
       print("BoardCell: index = {}, has_lucky_box = {}, lucky_cash_amount = {}, land_cost = {}, rent_cost = {}".format(self.index, self.has_lucky_box, self.lucky_cash_amount, self.land_cost, self.rent_cost))
+   
+   def to_string(self) -> str:
+      result = "|"
+      if self.has_lucky_box:
+         result += "L:{},".format(self.lucky_cash_amount)
+      if self.owner is not None:
+         result += "O:{},".format(self.owner)
+      else :
+         result += "P:{},".format(self.land_cost)
+      result += "R:{}|".format(self.rent_cost)
+      return result
+
 
    def set_lucky_box(self, lucky_cash_amount: int):
       self.has_lucky_box = True
