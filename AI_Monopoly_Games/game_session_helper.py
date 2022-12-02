@@ -18,10 +18,10 @@ def game_setup():
 	
 	# Step 2: Pick players, for now only two players
 	while (True):
-		prompt = "Please choose player type for PLAYER ZERO: A: Human, B: Baseline AI: \n"
+		prompt = "Please choose player type for PLAYER ZERO: A: Human, B: Baseline AI, C: MCTS AI \n"
 		player_zero_choice = input(prompt)
 		choice_int = min(abs(ord(player_zero_choice) - ord('A')), abs(ord(player_zero_choice) - ord('a')))
-		if (choice_int < 0 or choice_int > 1):
+		if (choice_int < 0 or choice_int > 2):
 			print("Invalid input, please try again.")
 		else:
 			player_zero_type = choice_int
@@ -29,10 +29,10 @@ def game_setup():
 			break
 	
 	while (True):
-		prompt = "Please choose player type for PLAYER ONE: A: Human, B: Baseline AI: \n"
+		prompt = "Please choose player type for PLAYER ONE: A: Human, B: Baseline AI, C: MCTS AI \n"
 		player_one_choice = input(prompt)
 		choice_int = min(abs(ord(player_one_choice) - ord('A')), abs(ord(player_one_choice) - ord('a')))
-		if (choice_int < 0 or choice_int > 1):
+		if (choice_int < 0 or choice_int > 2):
 			print("Invalid input, please try again.")
 		else:
 			player_one_type = choice_int

@@ -1,8 +1,10 @@
 from Player import Player
 from BoardCell import BoardCell
 import random
-import utils
 import numpy as np
+
+import utils
+import mcts
 
 MAX_ROUND = 20
 
@@ -188,7 +190,8 @@ class Game:
                 pass
             elif (curr_player.get_type() == 2):
                 # MCTS AI
-                # TODO: use UCT to decide what to do
+                # TODO
+                mcts.roll_out(self, curr_player_index)
                 pass
         else:
             input(" Player " + str(curr_player_index) + " is on a land owned by Player " + str(curr_cell.get_owner()) + ". \n There is no valid actions. Enter to next turn. \n")
