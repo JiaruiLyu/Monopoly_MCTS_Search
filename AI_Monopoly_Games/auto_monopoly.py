@@ -1,6 +1,8 @@
 import game_session_helper
 from Game import *
 
+# This file is for automating whole game sessions for AI training
+
 if __name__ == "__main__":
 	
 	print("Welcome to AUTO Monopoly!")
