@@ -2,6 +2,7 @@ from Player import Player
 from BoardCell import BoardCell
 import random
 import numpy as np
+import copy
 
 import utils
 import mcts
@@ -52,17 +53,26 @@ class Game:
 
     # move a player from one cell to another 
     # by making changes to data sources accordingly
-    def move_player(self, playerindex: int, dicenum: int):
+    def move_player_in_turn(self, dicenum: int, verbose: bool = True):
+        playerindex = self.player_in_turn
         currentlocation = self.player_locations[playerindex]
         newlocation = (currentlocation + dicenum) % self.grid_size
         self.player_locations[playerindex] = newlocation
         self.board_list[currentlocation].remove_player(playerindex)
         self.board_list[newlocation].add_player(playerindex)
-        print("Player {} moved from {} to {}".format(playerindex, currentlocation, newlocation))
+        if (verbose):
+            print("Player {} moved from {} to {}".format(playerindex, currentlocation, newlocation))
 
     # set player type, 0 for human, 1 for Baseline AI, 2 for MCTS AI
     def set_player_type(self, index: int, type: int):
         self.player_list[index].set_type(type)
+    
+    def get_player_in_turn(self) -> int:
+        return self.get_player_in_turn
+
+    def has_available_action(self) -> bool:
+        curr_cell = self.board_list[self.player_locations[self.player_in_turn]]
+        return not curr_cell.has_owner()
 
     # ==== Data related ====
     # TODO: what about more than 2 players
@@ -151,7 +161,7 @@ class Game:
         print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.")
 
         # move player
-        self.move_player(curr_player_index, dice_num)
+        self.move_player_in_turn(dice_num)
         curr_player_location = self.player_locations[curr_player_index] # index after moving
 
         # process lucky box if needed, player gains money
@@ -191,7 +201,7 @@ class Game:
             elif (curr_player.get_type() == 2):
                 # MCTS AI
                 # TODO
-                mcts.roll_out(self, curr_player_index)
+                mcts.roll_out(self)
                 pass
         else:
             input(" Player " + str(curr_player_index) + " is on a land owned by Player " + str(curr_cell.get_owner()) + ". \n There is no valid actions. Enter to next turn. \n")
@@ -226,3 +236,43 @@ class Game:
                 winner_score = curr_score
         print(self.players_to_string())
         print("Player " + str(winner) + " wins!")
+
+    def get_score(self, player_index) -> float:
+        # assume two player only
+        return self.player_list[player_index].get_money() / self.player_list[1-player_index].get_money()
+
+    # ======= helpfer functions for state tree ======
+    def get_all_sub_games(self) -> list:
+        sub_game_list = []
+
+        for i in range(6):
+            dicenum = i+1
+            sub_game = copy.deepcopy(self)
+            sub_game.move_player_in_turn(dicenum, False)
+            if (sub_game.has_available_action()):
+                # choose between purchase land or not
+                sub_game_b = copy.deepcopy(sub_game) # do nothing
+                sub_game.purchase_land() # do something
+
+                sub_game_list.append(sub_game_b)
+                sub_game_list.append(sub_game)
+            else:
+                # pay rent, thats it
+                sub_game.pay_rent()
+                sub_game_list.append(sub_game)
+
+        return sub_game_list
+
+    def purchase_land(self):
+        curr_cell = self.board_list[self.player_locations[self.player_in_turn]]
+        curr_player = self.player_list[self.player_in_turn]
+        
+        curr_cell.set_owner(self.player_in_turn)
+        curr_player.remove_money(curr_cell.get_price())
+
+    def pay_rent(self):
+        curr_cell = self.board_list[self.player_locations[self.player_in_turn]]
+        curr_player = self.player_list[self.player_in_turn]
+
+        curr_player.remove_money(curr_cell.get_rent())
+        self.player_list[curr_cell.get_owner()].add_money(curr_cell.get_rent())
