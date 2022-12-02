@@ -7,7 +7,7 @@ import copy
 import utils
 import mcts
 
-MAX_ROUND = 20
+MAX_ROUND = 25
 
 class Game:
     # Initialize all the game stats
@@ -200,7 +200,7 @@ class Game:
                 pass
             elif (curr_player.get_type() == 2):
                 # MCTS AI
-                # TODO
+                tmp = input("Player " + str(curr_player_index) + " is a MCTS AI, press ENTER to proceed.")
                 mcts.roll_out(self)
                 pass
         else:

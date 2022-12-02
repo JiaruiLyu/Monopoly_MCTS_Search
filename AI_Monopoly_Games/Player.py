@@ -2,7 +2,7 @@ class Player:
 
    def __init__(self, id, type: int = 0):
       self.id = id
-      self.money = 1000
+      self.money = 400
       self.hp = 0 # not used for now
       self.type = type # 0 for human, 1 for Baseline AI, 2 for MCTS AI
 

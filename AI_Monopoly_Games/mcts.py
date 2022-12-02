@@ -39,6 +39,8 @@ class StateNode:
         sub_state_list = self.game_state.get_all_sub_games()
         for sub_state in sub_state_list:
             self.children.append(StateNode(sub_state))
+    def add_child(self, child):
+        self.children.append(child)
 
     def set_parent(self, parent):
         self.parent = parent
@@ -84,14 +86,31 @@ def rnd_roll_out_helper(curr_node, ancester, depth):
 
     pass
 
-def roll_out(game):
+def roll_out(game) -> int:
     
     curr_game = copy.deepcopy(game) # run roll_out on this copy so it does not mess up the actual game data.
     
     root = StateNode(curr_game)
-    
-    for i in range(10):
-        rnd_roll_out_helper(root, curr_game.player_in_turn, 0)
 
+    # at this point, the AI has two possible moves, purchase land or do nothing, run roll out on both
+    # add the two children to the root node
+    # and run roll_out_helper on each child
+    root.add_child(StateNode(curr_game))
+
+    curr_game_b = copy.deepcopy(game)
+    curr_game_b.purchase_land()
+    root.add_child(StateNode(curr_game_b))
+    
+    for i in range(20):
+        rnd_roll_out_helper(root.children[0], curr_game.player_in_turn, 0)
+        rnd_roll_out_helper(root.children[1], curr_game.player_in_turn, 0)
+
+    # choose the child that has the maximum utility
+    
+    a = root.children[0].get_utility()
+    b = root.children[1].get_utility()
     print("roll_out OVER")
-    pass
+    if (a > b) :
+        return 0
+    else:
+        return 1
