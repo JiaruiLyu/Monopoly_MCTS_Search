@@ -41,8 +41,13 @@ class BoardCell:
       result += player_string.ljust(4) + "] "
       return result
 
-   def set_player(self, player_index: int):
+   # Add player to the cell, this means the player is currently on this cell
+   def add_player(self, player_index: int):
       self.player.append(player_index)
+   
+   # Remove the player index from the cell
+   def remove_player(self, player_index: int):
+      self.player.remove(player_index)
 
    def set_lucky_box(self, lucky_cash_amount: int):
       self.has_lucky_box = True
