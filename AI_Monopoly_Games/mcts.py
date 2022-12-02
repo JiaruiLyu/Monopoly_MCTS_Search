@@ -62,16 +62,15 @@ class StateNode:
 
 # TODO:
 def rnd_roll_out_helper(curr_node, ancester, depth):
-    print("depth: " + str(depth))
+
     depth += 1
     # base case
-    if (curr_node.game_state.is_game_over() or depth == 30):
+    if (curr_node.game_state.is_game_over(verbose=False)):
         score = curr_node.game_state.get_score(ancester)
         curr_node.increment_visit_count()
         curr_node.set_utility(score)
         return
 
-    # no list 
     # pick a random child
     curr_node.populate_children()
     next_node = curr_node.get_random_child()
@@ -91,8 +90,8 @@ def roll_out(game):
     
     root = StateNode(curr_game)
     
-    for i in range(1):
+    for i in range(10):
         rnd_roll_out_helper(root, curr_game.player_in_turn, 0)
 
-    print("GAME OVER")
+    print("roll_out OVER")
     pass

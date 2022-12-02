@@ -215,12 +215,14 @@ class Game:
     # ==== End of Game Related ====
     # Return True if the game is over, and False otherwise.
     # The game is over if any user has 0 hp and cant pay the tolls
-    def is_game_over(self) -> bool:
+    def is_game_over(self, verbose: bool = True) -> bool:
         if (self.turn_count >= MAX_ROUND):
-            print("Game Over! The game has reached the maximum round count.")
+            if verbose:
+                print("Game Over! The game has reached the maximum round count.")
             return True
         elif (self.game_over_flag):
-            print("Game Over! One player has been eliminated.")
+            if verbose:
+                print("Game Over! One player has been eliminated.")
         
         return self.game_over_flag
 
@@ -248,6 +250,7 @@ class Game:
         for i in range(6):
             dicenum = i+1
             sub_game = copy.deepcopy(self)
+            sub_game.turn_count += 1
             sub_game.move_player_in_turn(dicenum, False)
             if (sub_game.has_available_action()):
                 # choose between purchase land or not
