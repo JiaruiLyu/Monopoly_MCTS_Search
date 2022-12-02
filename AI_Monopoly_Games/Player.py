@@ -21,3 +21,5 @@ class Player:
 
    def set_type(self, type: int):
       self.type = type
+   def get_type(self) -> int:
+      return self.type

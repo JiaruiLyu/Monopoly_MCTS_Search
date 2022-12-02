@@ -5,7 +5,7 @@ class BoardCell:
    def __init__(self, index):
       self.index = index
       self.has_lucky_box = False
-      self.lucky_cash_amount = 0
+      self.lucky_cash_amount = 0 # 0 means no lucky box
 
       self.player = [] # list of index of players on this cell
 
