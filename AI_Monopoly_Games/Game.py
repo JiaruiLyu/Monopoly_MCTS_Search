@@ -4,7 +4,7 @@ import random
 import utils
 import numpy as np
 
-MAX_ROUND = 10
+MAX_ROUND = 20
 
 class Game:
     # Initialize all the game stats
@@ -127,7 +127,7 @@ class Game:
         print("========== After Move Game Stat ==========")
         print("  ---------- Plyaers ----------")
         print(self.players_to_string())
-        print("  ---------- Board ------------ (clockwise) \n [ID O: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ]")
+        print("  ---------- Board ------------ (clockwise) \n [ID @: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ]")
         print(self.board_to_string())
     
 
@@ -162,6 +162,7 @@ class Game:
         if curr_cell.has_owner() and curr_cell.get_owner() != curr_player_index:
             curr_player.remove_money(curr_cell.get_rent())
             self.player_list[curr_cell.get_owner()].add_money(curr_cell.get_rent())
+            print("Player " + str(curr_player_index) + " paid rent to Player " + str(curr_cell.get_owner()) + ". " + str(curr_cell.get_rent()) + " cash removed from his account.\n")
 
         # process land purchase decision making
         if (not curr_cell.has_owner()):
@@ -198,13 +199,6 @@ class Game:
         # update next player in turn
         self.player_in_turn = self.player_count - 1 - curr_player_index
 
-    # ==== Player Related ====
-    # TODO: return a list of valid actions for the current player
-    def valid_actions(self, player_index: int) -> list:
-        # can choose: purchase current cell, if available
-        # must do: pick up lucky box, pay rent
-        return []
-
     # ==== End of Game Related ====
     # Return True if the game is over, and False otherwise.
     # The game is over if any user has 0 hp and cant pay the tolls
@@ -227,5 +221,5 @@ class Game:
             if (curr_score > winner_score):
                 winner = i
                 winner_score = curr_score
-        print(self.players_to_string)
+        print(self.players_to_string())
         print("Player " + str(winner) + " wins!")

@@ -22,7 +22,7 @@ class BoardCell:
    def to_string(self) -> str:
       result = ""
       if self.owner is not None:
-         result += "O{},".format(self.pad_number(self.owner))
+         result += "@{},".format(self.pad_number(self.owner))
       else :
          result += "P{},".format(self.pad_number(self.land_price))
       result += "R{},".format(self.pad_number(self.land_rent))
