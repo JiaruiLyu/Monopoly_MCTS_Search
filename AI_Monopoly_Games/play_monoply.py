@@ -17,3 +17,5 @@ if __name__ == "__main__":
 	while (not game.is_game_over()):
 		game.play_one_turn() # will call the user or ai to play a turn
 		game.print_info()
+
+	game.announce_winner()

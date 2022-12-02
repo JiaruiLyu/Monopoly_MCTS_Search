@@ -4,7 +4,6 @@ class BoardCell:
 
    def __init__(self, index):
       self.index = index
-      self.has_lucky_box = False
       self.lucky_cash_amount = 0 # 0 means no lucky box
 
       self.player = [] # list of index of players on this cell
@@ -15,7 +14,7 @@ class BoardCell:
       self.owner = None # player who owns the cell, 0 or 1
 
    def print_info(self):
-      print("BoardCell: index = {}, has_lucky_box = {}, lucky_cash_amount = {}, land_price = {}, land_rent = {}".format(self.index, self.has_lucky_box, self.lucky_cash_amount, self.land_price, self.land_rent))
+      print("BoardCell: index = {}, lucky_cash_amount = {}, land_price = {}, land_rent = {}".format(self.index, self.lucky_cash_amount, self.land_price, self.land_rent))
    
    def pad_number(self, number:int) -> str:
       return str(number).rjust(2)
@@ -27,7 +26,7 @@ class BoardCell:
       else :
          result += "P{},".format(self.pad_number(self.land_price))
       result += "R{},".format(self.pad_number(self.land_rent))
-      if self.has_lucky_box:
+      if self.has_lucky_box():
          result += "L{}".format(self.pad_number(self.lucky_cash_amount))
 
       # pad
@@ -49,6 +48,22 @@ class BoardCell:
    def remove_player(self, player_index: int):
       self.player.remove(player_index)
 
-   def set_lucky_box(self, lucky_cash_amount: int):
-      self.has_lucky_box = True
-      self.lucky_cash_amount = lucky_cash_amount
+   def set_lucky_box(self, cash_amount: int):
+      self.lucky_cash_amount = cash_amount
+   
+   def has_owner(self) -> bool:
+      return self.owner != None
+   def get_owner(self) -> int:
+      return self.owner
+   def set_owner(self, player_index: int):
+      self.owner = player_index
+
+   def has_lucky_box(self) -> bool:
+      return self.lucky_cash_amount > 0
+   def get_lucky_box_amount(self) -> int:
+      return self.lucky_cash_amount
+   
+   def get_price(self) -> int:
+      return self.land_price
+   def get_rent(self) -> int:
+      return self.land_rent

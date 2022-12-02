@@ -2,6 +2,7 @@ from Player import Player
 from BoardCell import BoardCell
 import random
 import utils
+import numpy as np
 
 MAX_ROUND = 10
 
@@ -39,7 +40,6 @@ class Game:
 
     # ==== Board Related ====
 
-    # DONE
     # Pick a few random cells in self.board_list and set them as lucky boxes
     def drop_lucky_box(self):
         grid_size = self.grid_size
@@ -48,8 +48,6 @@ class Game:
         for cell in box_spots:
             cell.set_lucky_box(random.randint(2, 5))
 
-    # ===== Helper Functions =====
-    # DONE
     # move a player from one cell to another 
     # by making changes to data sources accordingly
     def move_player(self, playerindex: int, dicenum: int):
@@ -58,11 +56,34 @@ class Game:
         self.player_locations[playerindex] = newlocation
         self.board_list[currentlocation].remove_player(playerindex)
         self.board_list[newlocation].add_player(playerindex)
+        print("Player {} moved from {} to {}".format(playerindex, currentlocation, newlocation))
 
-    # DONE
     # set player type, 0 for human, 1 for Baseline AI, 2 for MCTS AI
     def set_player_type(self, index: int, type: int):
         self.player_list[index].set_type(type)
+
+    # ==== Data related ====
+    # TODO: what about more than 2 players
+    # use matrix to represent the board for data processing
+    def port_data(self) -> np.ndarray:
+        # port all board data to a 3d matrix
+        # matrix[0] = player 0 location
+        # matrix[1] = player 1 location
+        # matrix[2] = player 0 ownership
+        # matrix[3] = player 1 ownership
+        # matrix[4] = land price
+        # matrix[5] = land rent
+        # matrix[6] = lucky box amount
+        matrix = np.zeros((7, self.grid_size))
+        for i in range(self.grid_size):
+            matrix[0][i] = self.player_locations[0] == i
+            matrix[1][i] = self.player_locations[1] == i
+            matrix[2][i] = self.board_list[i].get_owner() == 0
+            matrix[3][i] = self.board_list[i].get_owner() == 1
+            matrix[4][i] = self.board_list[i].get_price()
+            matrix[5][i] = self.board_list[i].get_rent()
+            matrix[6][i] = self.board_list[i].get_lucky_box_amount()
+        return matrix
 
     # ===== Printing Functions =====
     # Print all cells in a circular order, each cell is 10 characters wide
@@ -125,29 +146,57 @@ class Game:
         
         # roll dice
         dice_num = utils.roll_dice()
-        print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.\n")
+        print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.")
 
         # move player
         self.move_player(curr_player_index, dice_num)
+        curr_player_location = self.player_locations[curr_player_index] # index after moving
 
-        # process lucky box if needed
+        # process lucky box if needed, player gains money
+        curr_cell = self.board_list[curr_player_location]
+        if curr_cell.has_lucky_box():
+            curr_player.add_money(curr_cell.get_lucky_box_amount())
+            print("Player " + str(curr_player_index) + " got lucky! " + str(curr_cell.get_lucky_box_amount()) + " cash added to his account.\n")
 
-        # process rent if needed
+        # process rent if needed, player lose money, owner gains money
+        if curr_cell.has_owner() and curr_cell.get_owner() != curr_player_index:
+            curr_player.remove_money(curr_cell.get_rent())
+            self.player_list[curr_cell.get_owner()].add_money(curr_cell.get_rent())
 
-        # process decision making
-        if (curr_player.get_type() == 0):
-            # human player
-            pass
-        elif (curr_player.get_type() == 1):
-            # baseline AI
-            pass
-        elif (curr_player.get_type() == 2):
-            # MCTS AI
-            pass
-
+        # process land purchase decision making
+        if (not curr_cell.has_owner()):
+            if (curr_player.get_type() == 0):
+                # human player
+                # ask for user input, purchase land or not, if available
+                prompt = "Player " + str(curr_player_index) + " valid action: \n do you want to purchase this land? (y/n) "
+                if (input(prompt) == "y"):
+                    curr_cell.set_owner(curr_player_index)
+                    curr_player.remove_money(curr_cell.get_price())
+                    input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
+                    
+                pass
+            elif (curr_player.get_type() == 1):
+                # baseline AI, coin flip choice
+                tmp = input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
+                if (utils.flip_coin() == 1):
+                    curr_cell.set_owner(curr_player_index)
+                    curr_player.remove_money(curr_cell.get_price())
+                    input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
+                else:
+                    input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
+                pass
+            elif (curr_player.get_type() == 2):
+                # MCTS AI
+                # TODO: use UCT to decide what to do
+                pass
+        else:
+            input(" Player " + str(curr_player_index) + " is on a land owned by Player " + str(curr_cell.get_owner()) + ". \n There is no valid actions. Enter to next turn. \n")
+        
+        if (curr_player.get_money() < 0):
+            self.game_over_flag = True
+        
         # update next player in turn
         self.player_in_turn = self.player_count - 1 - curr_player_index
-
 
     # ==== Player Related ====
     # TODO: return a list of valid actions for the current player
@@ -162,17 +211,15 @@ class Game:
     def is_game_over(self) -> bool:
         if (self.turn_count >= MAX_ROUND):
             print("Game Over! The game has reached the maximum round count.")
-            winner = self.get_winner()
-            print("Player " + str(winner) + " wins!")
             return True
         elif (self.game_over_flag):
-            print("Game Over! Some players have been eliminated.")
-            return True
-        return False
+            print("Game Over! One player has been eliminated.")
+        
+        return self.game_over_flag
 
     # check each player's stats, calculate total score by hp and gold
     # return the player with the highest score
-    def get_winner(self) -> int:
+    def announce_winner(self):
         winner = 0
         winner_score = 0
         for i in range(self.player_count):
@@ -180,4 +227,5 @@ class Game:
             if (curr_score > winner_score):
                 winner = i
                 winner_score = curr_score
-        return winner
+        print(self.players_to_string)
+        print("Player " + str(winner) + " wins!")
