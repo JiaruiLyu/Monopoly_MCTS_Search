@@ -23,7 +23,11 @@ class Game:
             cell = BoardCell(i)
             self.board_list.append(cell) 
 
-        # Initialize the board with lucky boxes
+        # Drop players
+        for i in range(self.player_count):
+            self.board_list[0].set_player(i)
+
+        # Drop lucky boxes
         self.drop_lucky_box()
 
     # ==== Board Related ====
@@ -44,9 +48,9 @@ class Game:
         for cell in self.board_list:
             cell_string_list.append(cell.to_string())
 
-        print_width = self.grid_size//2//2 + 1
+        print_width = self.grid_size//2//2
         print_height = self.grid_size//2 - print_width
-        space_filler = " " * 19
+        space_filler = " " * 25
 
         #  14
         #  0  1 2 3 
@@ -55,19 +59,22 @@ class Game:
         #  11     6
         #  10 9 8 7
 
-        result += "\n     " + " ".join(cell_string_list[0:print_width]) + "\n"
+        result += "\n " + " ".join(cell_string_list[0:print_width]) + "\n"
         curr_index = print_width
+        result += "\n"
         for i in range(print_height):
-            result += "     "
-            result += cell_string_list[print_width*2+print_height*3-curr_index] + " " + space_filler*(print_width-2) + cell_string_list[curr_index] + "\n"
+            result += " "
+            result += cell_string_list[print_width*2+print_height*3-curr_index-1] + " " + space_filler*(print_width-2) + cell_string_list[curr_index] + "\n"
             curr_index += 1
-        result += "     " + " ".join(cell_string_list[curr_index:curr_index+print_width][::-1]) + "\n"
+            result += "\n"
+        result += " " + " ".join(cell_string_list[curr_index:curr_index+print_width][::-1]) + "\n"
         
         return result
 
 
 
     def print_info(self):
+        print("\n ==== Map Representation: ===== \n [ID O: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ] \n")
         print(" ========== Round: " + str(self.round_count) + " ==========")
         print(self.to_string())
 
