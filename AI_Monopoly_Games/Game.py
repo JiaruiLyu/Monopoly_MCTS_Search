@@ -15,7 +15,7 @@ class Game:
 
         ### Initialize players ###
         for i in range(self.player_count):
-            new_player = Player(i+1)
+            new_player = Player(i)
             self.player_list.append(new_player)
 
         ### Initialize Board ###
@@ -30,9 +30,6 @@ class Game:
         # Drop lucky boxes
         self.drop_lucky_box()
 
-        # Print the game info
-        self.print_info()
-
     # ==== Board Related ====
 
     # DONE
@@ -45,7 +42,7 @@ class Game:
             cell.set_lucky_box(random.randint(2, 5))
 
     # Print all cells in a circular order, each cell is 10 characters wide
-    def to_string(self):
+    def board_to_string(self):
         result = ""
         cell_string_list = []
         for cell in self.board_list:
@@ -55,12 +52,13 @@ class Game:
         print_height = self.grid_size//2 - print_width
         space_filler = " " * 25
 
-        #  14
-        #  0  1 2 3 
-        #  13     4
-        #  12     5
-        #  11     6
-        #  10 9 8 7
+        #  e.g. 14
+        #  00 01 02
+        #  13    03
+        #  12    04
+        #  11    05
+        #  10    06
+        #  09 08 07
 
         result += "\n " + " ".join(cell_string_list[0:print_width]) + "\n"
         curr_index = print_width
@@ -74,13 +72,20 @@ class Game:
         
         return result
 
-
+    def players_to_string(self):
+        result = ""
+        for player in self.player_list:
+            result += player.to_string() + "\n"
+        return result
 
     def print_info(self):
         print("\n ==== Map Representation: ===== \n [ID O: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ] \n")
         print(" ========== Round: " + str(self.round_count) + " ==========")
-        print(self.to_string())
+        print(self.players_to_string())
+        print(self.board_to_string())
 
+    def set_player_type(self, index: int, type: int):
+        self.player_list[index].set_type(type)
 
     ### TODO ###
     def move_one_round(self, playerOrder: tuple, state: tuple) -> tuple:

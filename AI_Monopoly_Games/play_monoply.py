@@ -4,6 +4,7 @@ if __name__ == "__main__":
 	# Step 1: Choose game size
 	print("Welcome to Monopoly!")
 
+	game: Game
 	game_size = None 
 	player_zero_type = None # 0 for human, 1 for Baseline AI, 2 for MCTS AI
 	player_one_type = None # 0 for human, 1 for Baseline AI, 2 for MCTS AI
@@ -26,8 +27,8 @@ if __name__ == "__main__":
 			print("Invalid input, please try again.")
 		else:
 			player_zero_type = ord(player_zero_choice) - ord('A')
+			game.set_player_type(0, player_zero_type)
 			break
-	
 	
 	while (True):
 		prompt = "Please choose player type for PLAYER ONE: A: Human, B: Baseline AI: \n"
@@ -36,7 +37,9 @@ if __name__ == "__main__":
 			print("Invalid input, please try again.")
 		else:
 			player_one_type = ord(player_one_choice) - ord('A')
+			game.set_player_type(1, player_one_type)
 			break
 
 	# Step 3: Start the game
-
+	game.print_info()
+	
