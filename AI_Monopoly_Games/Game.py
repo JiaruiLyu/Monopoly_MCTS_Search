@@ -37,9 +37,40 @@ class Game:
         for cell in box_spots:
             cell.set_lucky_box(random.randint(2, 5))
 
-    def print_info(self):
+    # Print all cells in a circular order, each cell is 10 characters wide
+    def to_string(self):
+        result = ""
+        cell_string_list = []
         for cell in self.board_list:
-            print(cell.to_string())
+            cell_string_list.append(cell.to_string())
+
+        print_width = self.grid_size//2//2 + 1
+        print_height = self.grid_size//2 - print_width
+        space_filler = " " * 19
+
+        #  14
+        #  0  1 2 3 
+        #  13     4
+        #  12     5
+        #  11     6
+        #  10 9 8 7
+
+        result += "\n     " + " ".join(cell_string_list[0:print_width]) + "\n"
+        curr_index = print_width
+        for i in range(print_height):
+            result += "     "
+            result += cell_string_list[print_width*2+print_height*3-curr_index] + " " + space_filler*(print_width-2) + cell_string_list[curr_index] + "\n"
+            curr_index += 1
+        result += "     " + " ".join(cell_string_list[curr_index:curr_index+print_width][::-1]) + "\n"
+        
+        return result
+
+
+
+    def print_info(self):
+        print(" ========== Round: " + str(self.round_count) + " ==========")
+        print(self.to_string())
+
 
     ### TODO ###
     def move_one_round(self, playerOrder: tuple, state: tuple) -> tuple:
