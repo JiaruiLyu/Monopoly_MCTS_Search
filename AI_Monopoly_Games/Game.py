@@ -1,13 +1,14 @@
 from Player import Player
 from BoardCell import BoardCell
 import random
+import utils
 
-MAX_ROUND = 30
+MAX_ROUND = 10
 
 class Game:
     # Initialize all the game stats
     def __init__(self, grid_size: int = 20):
-        self.round_count = 0
+        self.turn_count = 0
         self.player_count = 2
         self.grid_size = grid_size
         self.player_in_turn = 0  # 0 means player 0's turn, 1 means player 1's turn, etc.
@@ -98,16 +99,18 @@ class Game:
     def players_to_string(self):
         result = ""
         for player in self.player_list:
-            result += player.to_string() + "\n"
+            result += player.to_string() + " location: {}".format(self.player_locations[player.get_id()]) + "\n"
         return result
 
     def print_info(self):
-        print("\n ==== Map Representation: ===== \n [ID O: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ] \n")
-        print(" ========== Round: " + str(self.round_count) + " ==========")
+        print("========== After Move Game Stat ==========")
+        print("  ---------- Plyaers ----------")
         print(self.players_to_string())
+        print("  ---------- Board ------------ (clockwise) \n [ID O: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ]")
         print(self.board_to_string())
     
 
+    # ==== Game Loop Related ====
     ### TODO ###
     # Roll the dice, move the player in turn
     # ask for user / AI input if needed
@@ -116,13 +119,16 @@ class Game:
     def play_one_turn(self):
         curr_player_index = self.player_in_turn
         curr_player = self.player_list[curr_player_index]
+
+        self.turn_count += 1
+        print("========== Turn: " + str(self.turn_count) + " ==========")
         
         # roll dice
-        dice_num = random.randint(1, 6)
-        print("Player " + str(self.player_in_turn) + " rolled " + str(dice_num) + " points.\n")
+        dice_num = utils.roll_dice()
+        print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.\n")
 
         # move player
-        self.move_player(self.player_in_turn, dice_num)
+        self.move_player(curr_player_index, dice_num)
 
         # process lucky box if needed
 
@@ -141,7 +147,6 @@ class Game:
 
         # update next player in turn
         self.player_in_turn = self.player_count - 1 - curr_player_index
-        self.round_count += 1
 
 
     # ==== Player Related ====
@@ -155,8 +160,10 @@ class Game:
     # Return True if the game is over, and False otherwise.
     # The game is over if any user has 0 hp and cant pay the tolls
     def is_game_over(self) -> bool:
-        if (self.round_count >= MAX_ROUND):
+        if (self.turn_count >= MAX_ROUND):
             print("Game Over! The game has reached the maximum round count.")
+            winner = self.get_winner()
+            print("Player " + str(winner) + " wins!")
             return True
         elif (self.game_over_flag):
             print("Game Over! Some players have been eliminated.")
@@ -165,16 +172,12 @@ class Game:
 
     # check each player's stats, calculate total score by hp and gold
     # return the player with the highest score
-    def winner_of(self) -> int:
-        playerlist = self.player_list
-        n = self.player_count
+    def get_winner(self) -> int:
         winner = 0
-        max_point = 0
-
-        for i in range(n):
-            hp_gold = 15 * playerlist[i][1] 
-            player_score = playerlist[i][0] + hp_gold
-            if player_score >= max_point:
-                max_point = player_score 
+        winner_score = 0
+        for i in range(self.player_count):
+            curr_score = self.player_list[i].get_score()
+            if (curr_score > winner_score):
                 winner = i
+                winner_score = curr_score
         return winner
