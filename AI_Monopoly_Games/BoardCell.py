@@ -29,7 +29,7 @@ class BoardCell:
          result += "L{}".format(self.pad_number(self.lucky_cash_amount))
 
       # pad
-      result = "[" + self.pad_number(self.index) + " " + result.ljust(11) +  " | "
+      result = "[" + str(self.index).zfill(2) + " " + result.ljust(11) +  " | "
 
       # drop players
       player_string = ""
