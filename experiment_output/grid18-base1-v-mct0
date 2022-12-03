@@ -1,0 +1,307 @@
+Welcome to AUTO Monopoly!
+AUTO Game is ready to start!, grid size = 18, player zero is a Baseline AI, player one is a MCTS AI
+baseline ai mode: 1. (0 for random, 1 for greedy)
+mcts ai mode: 0. (0 for random, 1 for uct improved)
+ ----- Experiment 0 / 100 -----
+MCTS AI wins! by 376 to 152
+Experiment 0 finished.
+ ----- Experiment 1 / 100 -----
+MCTS AI wins! by 408 to 185
+Experiment 1 finished.
+ ----- Experiment 2 / 100 -----
+MCTS AI wins! by 396 to 239
+Experiment 2 finished.
+ ----- Experiment 3 / 100 -----
+MCTS AI wins! by 374 to 76
+Experiment 3 finished.
+ ----- Experiment 4 / 100 -----
+MCTS AI wins! by 390 to 76
+Experiment 4 finished.
+ ----- Experiment 5 / 100 -----
+MCTS AI wins! by 404 to 158
+Experiment 5 finished.
+ ----- Experiment 6 / 100 -----
+MCTS AI wins! by 324 to 60
+Experiment 6 finished.
+ ----- Experiment 7 / 100 -----
+MCTS AI wins! by 385 to 185
+Experiment 7 finished.
+ ----- Experiment 8 / 100 -----
+MCTS AI wins! by 386 to 107
+Experiment 8 finished.
+ ----- Experiment 9 / 100 -----
+MCTS AI wins! by 355 to 20
+Experiment 9 finished.
+ ----- Experiment 10 / 100 -----
+MCTS AI wins! by 363 to 131
+Experiment 10 finished.
+ ----- Experiment 11 / 100 -----
+MCTS AI wins! by 333 to 86
+Experiment 11 finished.
+ ----- Experiment 12 / 100 -----
+MCTS AI wins! by 377 to 32
+Experiment 12 finished.
+ ----- Experiment 13 / 100 -----
+MCTS AI wins! by 388 to 88
+Experiment 13 finished.
+ ----- Experiment 14 / 100 -----
+MCTS AI wins! by 405 to 358
+Experiment 14 finished.
+ ----- Experiment 15 / 100 -----
+MCTS AI wins! by 406 to 131
+Experiment 15 finished.
+ ----- Experiment 16 / 100 -----
+MCTS AI wins! by 396 to 86
+Experiment 16 finished.
+ ----- Experiment 17 / 100 -----
+MCTS AI wins! by 341 to 8
+Experiment 17 finished.
+ ----- Experiment 18 / 100 -----
+MCTS AI wins! by 400 to 221
+Experiment 18 finished.
+ ----- Experiment 19 / 100 -----
+MCTS AI wins! by 385 to 68
+Experiment 19 finished.
+ ----- Experiment 20 / 100 -----
+MCTS AI wins! by 391 to 11
+Experiment 20 finished.
+ ----- Experiment 21 / 100 -----
+MCTS AI wins! by 404 to 191
+Experiment 21 finished.
+ ----- Experiment 22 / 100 -----
+MCTS AI wins! by 373 to 43
+Experiment 22 finished.
+ ----- Experiment 23 / 100 -----
+MCTS AI wins! by 390 to 128
+Experiment 23 finished.
+ ----- Experiment 24 / 100 -----
+MCTS AI wins! by 386 to 72
+Experiment 24 finished.
+ ----- Experiment 25 / 100 -----
+MCTS AI wins! by 332 to 102
+Experiment 25 finished.
+ ----- Experiment 26 / 100 -----
+MCTS AI wins! by 374 to 37
+Experiment 26 finished.
+ ----- Experiment 27 / 100 -----
+MCTS AI wins! by 363 to 46
+Experiment 27 finished.
+ ----- Experiment 28 / 100 -----
+MCTS AI wins! by 385 to 175
+Experiment 28 finished.
+ ----- Experiment 29 / 100 -----
+MCTS AI wins! by 359 to 56
+Experiment 29 finished.
+ ----- Experiment 30 / 100 -----
+MCTS AI wins! by 370 to 44
+Experiment 30 finished.
+ ----- Experiment 31 / 100 -----
+MCTS AI wins! by 405 to 283
+Experiment 31 finished.
+ ----- Experiment 32 / 100 -----
+MCTS AI wins! by 329 to 114
+Experiment 32 finished.
+ ----- Experiment 33 / 100 -----
+MCTS AI wins! by 359 to 66
+Experiment 33 finished.
+ ----- Experiment 34 / 100 -----
+MCTS AI wins! by 372 to 62
+Experiment 34 finished.
+ ----- Experiment 35 / 100 -----
+MCTS AI wins! by 403 to 67
+Experiment 35 finished.
+ ----- Experiment 36 / 100 -----
+MCTS AI wins! by 400 to 34
+Experiment 36 finished.
+ ----- Experiment 37 / 100 -----
+MCTS AI wins! by 362 to 38
+Experiment 37 finished.
+ ----- Experiment 38 / 100 -----
+MCTS AI wins! by 380 to 259
+Experiment 38 finished.
+ ----- Experiment 39 / 100 -----
+MCTS AI wins! by 404 to 281
+Experiment 39 finished.
+ ----- Experiment 40 / 100 -----
+MCTS AI wins! by 391 to 0
+Experiment 40 finished.
+ ----- Experiment 41 / 100 -----
+MCTS AI wins! by 386 to 41
+Experiment 41 finished.
+ ----- Experiment 42 / 100 -----
+MCTS AI wins! by 396 to 24
+Experiment 42 finished.
+ ----- Experiment 43 / 100 -----
+MCTS AI wins! by 395 to 153
+Experiment 43 finished.
+ ----- Experiment 44 / 100 -----
+MCTS AI wins! by 379 to 117
+Experiment 44 finished.
+ ----- Experiment 45 / 100 -----
+MCTS AI wins! by 345 to 32
+Experiment 45 finished.
+ ----- Experiment 46 / 100 -----
+MCTS AI wins! by 366 to 35
+Experiment 46 finished.
+ ----- Experiment 47 / 100 -----
+MCTS AI wins! by 347 to 221
+Experiment 47 finished.
+ ----- Experiment 48 / 100 -----
+MCTS AI wins! by 394 to 93
+Experiment 48 finished.
+ ----- Experiment 49 / 100 -----
+MCTS AI wins! by 344 to 41
+Experiment 49 finished.
+ ----- Experiment 50 / 100 -----
+MCTS AI wins! by 356 to 44
+Experiment 50 finished.
+ ----- Experiment 51 / 100 -----
+MCTS AI wins! by 347 to 98
+Experiment 51 finished.
+ ----- Experiment 52 / 100 -----
+MCTS AI wins! by 350 to 46
+Experiment 52 finished.
+ ----- Experiment 53 / 100 -----
+MCTS AI wins! by 353 to 199
+Experiment 53 finished.
+ ----- Experiment 54 / 100 -----
+MCTS AI wins! by 367 to 18
+Experiment 54 finished.
+ ----- Experiment 55 / 100 -----
+MCTS AI wins! by 392 to 55
+Experiment 55 finished.
+ ----- Experiment 56 / 100 -----
+MCTS AI wins! by 402 to 186
+Experiment 56 finished.
+ ----- Experiment 57 / 100 -----
+MCTS AI wins! by 373 to 28
+Experiment 57 finished.
+ ----- Experiment 58 / 100 -----
+MCTS AI wins! by 382 to 117
+Experiment 58 finished.
+ ----- Experiment 59 / 100 -----
+MCTS AI wins! by 391 to 48
+Experiment 59 finished.
+ ----- Experiment 60 / 100 -----
+MCTS AI wins! by 395 to 203
+Experiment 60 finished.
+ ----- Experiment 61 / 100 -----
+MCTS AI wins! by 353 to 105
+Experiment 61 finished.
+ ----- Experiment 62 / 100 -----
+MCTS AI wins! by 371 to 139
+Experiment 62 finished.
+ ----- Experiment 63 / 100 -----
+MCTS AI wins! by 389 to 210
+Experiment 63 finished.
+ ----- Experiment 64 / 100 -----
+MCTS AI wins! by 408 to 199
+Experiment 64 finished.
+ ----- Experiment 65 / 100 -----
+MCTS AI wins! by 394 to 152
+Experiment 65 finished.
+ ----- Experiment 66 / 100 -----
+MCTS AI wins! by 387 to 22
+Experiment 66 finished.
+ ----- Experiment 67 / 100 -----
+MCTS AI wins! by 341 to 114
+Experiment 67 finished.
+ ----- Experiment 68 / 100 -----
+MCTS AI wins! by 329 to 61
+Experiment 68 finished.
+ ----- Experiment 69 / 100 -----
+MCTS AI wins! by 374 to 282
+Experiment 69 finished.
+ ----- Experiment 70 / 100 -----
+MCTS AI wins! by 367 to 130
+Experiment 70 finished.
+ ----- Experiment 71 / 100 -----
+MCTS AI wins! by 394 to 227
+Experiment 71 finished.
+ ----- Experiment 72 / 100 -----
+MCTS AI wins! by 384 to 93
+Experiment 72 finished.
+ ----- Experiment 73 / 100 -----
+MCTS AI wins! by 352 to 56
+Experiment 73 finished.
+ ----- Experiment 74 / 100 -----
+MCTS AI wins! by 396 to 245
+Experiment 74 finished.
+ ----- Experiment 75 / 100 -----
+MCTS AI wins! by 372 to 88
+Experiment 75 finished.
+ ----- Experiment 76 / 100 -----
+MCTS AI wins! by 362 to 64
+Experiment 76 finished.
+ ----- Experiment 77 / 100 -----
+MCTS AI wins! by 359 to 52
+Experiment 77 finished.
+ ----- Experiment 78 / 100 -----
+MCTS AI wins! by 355 to 98
+Experiment 78 finished.
+ ----- Experiment 79 / 100 -----
+MCTS AI wins! by 369 to 210
+Experiment 79 finished.
+ ----- Experiment 80 / 100 -----
+MCTS AI wins! by 358 to 67
+Experiment 80 finished.
+ ----- Experiment 81 / 100 -----
+MCTS AI wins! by 372 to 175
+Experiment 81 finished.
+ ----- Experiment 82 / 100 -----
+MCTS AI wins! by 386 to 222
+Experiment 82 finished.
+ ----- Experiment 83 / 100 -----
+MCTS AI wins! by 386 to 35
+Experiment 83 finished.
+ ----- Experiment 84 / 100 -----
+MCTS AI wins! by 392 to 129
+Experiment 84 finished.
+ ----- Experiment 85 / 100 -----
+MCTS AI wins! by 373 to 86
+Experiment 85 finished.
+ ----- Experiment 86 / 100 -----
+MCTS AI wins! by 405 to 13
+Experiment 86 finished.
+ ----- Experiment 87 / 100 -----
+MCTS AI wins! by 381 to 43
+Experiment 87 finished.
+ ----- Experiment 88 / 100 -----
+MCTS AI wins! by 410 to 163
+Experiment 88 finished.
+ ----- Experiment 89 / 100 -----
+MCTS AI wins! by 373 to 42
+Experiment 89 finished.
+ ----- Experiment 90 / 100 -----
+MCTS AI wins! by 373 to 52
+Experiment 90 finished.
+ ----- Experiment 91 / 100 -----
+MCTS AI wins! by 335 to 45
+Experiment 91 finished.
+ ----- Experiment 92 / 100 -----
+MCTS AI wins! by 340 to 29
+Experiment 92 finished.
+ ----- Experiment 93 / 100 -----
+MCTS AI wins! by 345 to 64
+Experiment 93 finished.
+ ----- Experiment 94 / 100 -----
+MCTS AI wins! by 346 to 82
+Experiment 94 finished.
+ ----- Experiment 95 / 100 -----
+MCTS AI wins! by 394 to 260
+Experiment 95 finished.
+ ----- Experiment 96 / 100 -----
+MCTS AI wins! by 358 to 29
+Experiment 96 finished.
+ ----- Experiment 97 / 100 -----
+MCTS AI wins! by 373 to 43
+Experiment 97 finished.
+ ----- Experiment 98 / 100 -----
+MCTS AI wins! by 412 to 127
+Experiment 98 finished.
+ ----- Experiment 99 / 100 -----
+MCTS AI wins! by 371 to 61
+Experiment 99 finished.
+Evaluation: 
+MCTS win rate: 1.0
+MCTS average score: 375.23 / baseline average score: 106.89 = 3.510431284498082

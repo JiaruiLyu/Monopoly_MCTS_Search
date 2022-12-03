@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Step 2: Pick players, for now only two players
     # SINGLE SOURCE OF TRUTH for every info of the game
 
-    grid_size = 18
+    grid_size = 22
     
     print("AUTO Game is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
 
@@ -20,6 +20,7 @@ if __name__ == "__main__":
     player_zero_score = 0
     player_one_score = 0
 
+    print("max round: {}".format(Game.MAX_ROUND))
     print("baseline ai mode: {}. (0 for random, 1 for greedy)".format(Game.BASE_LINE_AI_MODE))
     print("mcts ai mode: {}. (0 for random, 1 for uct improved)".format(Game.MCT_AI_MODE))
 
