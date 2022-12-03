@@ -7,11 +7,12 @@ import copy
 import utils
 import mcts
 
-MAX_ROUND = 25
+MAX_ROUND = 26
 BASE_LINE_AI_MODE = 1 # 0 for random, 1 for greedy (pick best rent/price property)
 MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
 
 class Game:
+
     # Initialize all the game stats
     def __init__(self, grid_size: int = 20):
         self.turn_count = 0
@@ -198,7 +199,7 @@ class Game:
                 # baseline AI
                 if verbose:
                     input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
-                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 5)):
+                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 5 and curr_player.get_money() >= curr_cell.get_price())):
                     curr_cell.set_owner(curr_player_index)
                     curr_player.remove_money(curr_cell.get_price())
                     if verbose:
@@ -253,10 +254,12 @@ class Game:
 
     def get_score(self, player_index) -> float:
         # assume two player only
-        if (player_index == 0):
-            return self.player_list[player_index].get_money() - self.player_list[1-player_index].get_money()
+        a = self.player_list[player_index].get_money()
+        b = self.player_list[1-player_index].get_money()
+        if (b <= 0):
+            return a - b
         else:
-            return self.player_list[player_index].get_money() / self.player_list[1-player_index].get_money()
+            return a / b
 
     # ======= helpfer functions for state tree ======
     def get_all_sub_games(self) -> list:
