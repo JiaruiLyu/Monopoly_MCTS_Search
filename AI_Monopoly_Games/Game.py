@@ -7,7 +7,7 @@ import copy
 import utils
 import mcts
 
-MAX_ROUND = 26
+MAX_ROUND = 30
 BASE_LINE_AI_MODE = 1 # 0 for random, 1 for greedy (pick best rent/price property)
 MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
 
@@ -19,6 +19,7 @@ class Game:
         self.player_count = 2
         self.grid_size = grid_size
         self.player_in_turn = 0  # 0 means player 0's turn, 1 means player 1's turn, etc.
+        self.mct_node_count = 0
 
         self.player_list = [] # list of Player objects
         self.board_list = [] # list of BoardCell objects
@@ -142,6 +143,8 @@ class Game:
         print("========== After Move Game Stat ==========")
         print("  ---------- Plyaers ----------")
         print(self.players_to_string())
+        if (self.mct_node_count > 0):
+            print(" total MCTS procssed node count: {}".format(self.mct_node_count))
         print("  ---------- Board ------------ (clockwise) \n [ID @: Owner, P: Land Price; R: Land Rent; L: Lucky Box Amount, | Players on the cell ]")
         print(self.board_to_string())
     
@@ -199,7 +202,7 @@ class Game:
                 # baseline AI
                 if verbose:
                     input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
-                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 5 and curr_player.get_money() >= curr_cell.get_price())):
+                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 4 and curr_player.get_money() >= curr_cell.get_price())):
                     curr_cell.set_owner(curr_player_index)
                     curr_player.remove_money(curr_cell.get_price())
                     if verbose:
@@ -212,7 +215,18 @@ class Game:
                 # MCTS AI
                 if verbose:
                     input("Player " + str(curr_player_index) + " is a MCTS AI, press ENTER to proceed.")
-                mcts.roll_out(self, MCT_AI_MODE, verbose=verbose)
+                decision, node_count = mcts.roll_out(self, MCT_AI_MODE, verbose=verbose)
+                self.mct_node_count += node_count
+                if decision:
+                    curr_cell.set_owner(curr_player_index)
+                    curr_player.remove_money(curr_cell.get_price())
+                    if verbose:
+                        print(" Processed node count in this turn: " + str(node_count))
+                        input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
+                else:
+                    if verbose:
+                        print(" Processed node count in this turn: " + str(node_count))
+                        input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
                 pass
         else:
             if verbose:
@@ -259,7 +273,7 @@ class Game:
         if (b <= 0):
             return a - b
         else:
-            return a / b
+            return a - b
 
     # ======= helpfer functions for state tree ======
     def get_all_sub_games(self) -> list:

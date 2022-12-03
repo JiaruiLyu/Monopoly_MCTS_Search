@@ -55,28 +55,27 @@ class StateNode:
         rnd_index = random.randint(0, len(self.children)-1)
         return self.children[rnd_index]
 
-def rnd_roll_out_helper(curr_node, ancester, depth):
+def rnd_roll_out_helper(curr_node, ancester, node_count):
 
-    depth += 1
     # base case
     if (curr_node.game_state.is_game_over(verbose=False)):
         score = curr_node.game_state.get_score(ancester)
         curr_node.increment_visit_count()
         curr_node.set_utility(score)
-        return
+        return node_count+1
 
     # pick a random child
     curr_node.populate_children()
     next_node = curr_node.get_random_child()
 
-    rnd_roll_out_helper(next_node, ancester, depth)
+    rnd_roll_out_helper(next_node, ancester, node_count)
 
     new_total = curr_node.get_utility() * curr_node.get_visit_count() + next_node.get_utility()
     curr_node.increment_visit_count()
     new_util = new_total/curr_node.get_visit_count()
     curr_node.set_utility(new_util)
 
-    pass
+    return node_count+1
 
 def UCT_roll_out_helper(curr_node, ancester, depth):
 
@@ -100,7 +99,7 @@ def UCT_roll_out_helper(curr_node, ancester, depth):
 
     pass
 
-def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> int:
+def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> tuple:
     
     curr_game = copy.deepcopy(game) # run roll_out on this copy so it does not mess up the actual game data.
     
@@ -114,11 +113,13 @@ def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> int:
     curr_game_b = copy.deepcopy(game)
     curr_game_b.purchase_land()
     root.add_child(StateNode(curr_game_b))
+
+    node_count = 0
     
     if (mct_ai_mode == 0):
         for i in range(20):
-            rnd_roll_out_helper(root.children[0], curr_game.player_in_turn, 0)
-            rnd_roll_out_helper(root.children[1], curr_game.player_in_turn, 0)
+            node_count += rnd_roll_out_helper(root.children[0], curr_game.player_in_turn, 0)
+            node_count += rnd_roll_out_helper(root.children[1], curr_game.player_in_turn, 0)
     elif (mct_ai_mode == 1):
         # use UCT to select the best child
         for i in range(20):
@@ -134,6 +135,6 @@ def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> int:
         print("roll_out OVER")
 
     if (a > b) :
-        return 0
+        return (0, node_count)
     else:
-        return 1
+        return (1, node_count)

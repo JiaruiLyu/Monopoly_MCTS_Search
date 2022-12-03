@@ -8,8 +8,8 @@ class BoardCell:
 
       self.player = [] # list of index of players on this cell
 
-      self.land_price = random.randint(50,99) # player pays this much to own the cell
-      self.land_rent = random.randint(5,20) # player pays this much to other player if the cell is owned
+      self.land_price = random.randint(60,80) # player pays this much to own the cell
+      self.land_rent = random.randint(10,20) # player pays this much to other player if the cell is owned
 
       self.owner = None # player who owns the cell, 0 or 1
 
