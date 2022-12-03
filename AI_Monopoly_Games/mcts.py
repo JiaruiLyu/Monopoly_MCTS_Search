@@ -15,13 +15,6 @@ import random
 import utils
 import copy
 
-
-    #         s
-    #   s   s  s s s s ss s s 
-    # 
-    
-
-
 class StateNode:
     def __init__(self, game):
         self.visit_count = 0
@@ -62,7 +55,6 @@ class StateNode:
         rnd_index = random.randint(0, len(self.children)-1)
         return self.children[rnd_index]
 
-# TODO:
 def rnd_roll_out_helper(curr_node, ancester, depth):
 
     depth += 1
@@ -86,7 +78,7 @@ def rnd_roll_out_helper(curr_node, ancester, depth):
 
     pass
 
-def roll_out(game) -> int:
+def roll_out(game, verbose: bool = True) -> int:
     
     curr_game = copy.deepcopy(game) # run roll_out on this copy so it does not mess up the actual game data.
     
@@ -109,7 +101,10 @@ def roll_out(game) -> int:
     
     a = root.children[0].get_utility()
     b = root.children[1].get_utility()
-    print("roll_out OVER")
+
+    if verbose:
+        print("roll_out OVER")
+
     if (a > b) :
         return 0
     else:

@@ -40,3 +40,14 @@ def game_setup():
 			break
 	return game
 pass
+
+def game_auto_setup(grid_size: int = 20, player_zero_type: int = 1, player_one_type: int = 2):
+	# print("This is an auto game experiment, default: grid size = 20, player zero is a Baseline AI, player one is a MCTS AI")
+
+	game = Game(grid_size)
+	
+	# Step 2: Pick players, for now only two players
+	game.set_player_type(0, player_zero_type) # Baseline AI
+	game.set_player_type(1, player_one_type) # MCTS AI
+	return game
+pass

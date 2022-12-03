@@ -8,6 +8,8 @@ import utils
 import mcts
 
 MAX_ROUND = 25
+BASE_LINE_AI_MODE = 1 # 0 for random, 1 for greedy (pick best rent/price property)
+MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
 
 class Game:
     # Initialize all the game stats
@@ -149,32 +151,36 @@ class Game:
     # ask for user / AI input if needed
     # do money transaction if needed
     # update other new states if needed
-    def play_one_turn(self):
+    def play_one_turn(self , verbose: bool = True):
         curr_player_index = self.player_in_turn
         curr_player = self.player_list[curr_player_index]
 
         self.turn_count += 1
-        print("========== Turn: " + str(self.turn_count) + " ==========")
+        if (verbose):
+            print("========== Turn: " + str(self.turn_count) + " ==========")
         
         # roll dice
         dice_num = utils.roll_dice()
-        print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.")
+        if (verbose):
+            print("Player " + str(curr_player_index) + " rolled " + str(dice_num) + " points.")
 
         # move player
-        self.move_player_in_turn(dice_num)
+        self.move_player_in_turn(dice_num, verbose)
         curr_player_location = self.player_locations[curr_player_index] # index after moving
 
         # process lucky box if needed, player gains money
         curr_cell = self.board_list[curr_player_location]
         if curr_cell.has_lucky_box():
             curr_player.add_money(curr_cell.get_lucky_box_amount())
-            print("Player " + str(curr_player_index) + " got lucky! " + str(curr_cell.get_lucky_box_amount()) + " cash added to his account.\n")
+            if verbose:
+                print("Player " + str(curr_player_index) + " got lucky! " + str(curr_cell.get_lucky_box_amount()) + " cash added to his account.\n")
 
         # process rent if needed, player lose money, owner gains money
         if curr_cell.has_owner() and curr_cell.get_owner() != curr_player_index:
             curr_player.remove_money(curr_cell.get_rent())
             self.player_list[curr_cell.get_owner()].add_money(curr_cell.get_rent())
-            print("Player " + str(curr_player_index) + " paid rent to Player " + str(curr_cell.get_owner()) + ". " + str(curr_cell.get_rent()) + " cash removed from his account.\n")
+            if verbose:
+                print("Player " + str(curr_player_index) + " paid rent to Player " + str(curr_cell.get_owner()) + ". " + str(curr_cell.get_rent()) + " cash removed from his account.\n")
 
         # process land purchase decision making
         if (not curr_cell.has_owner()):
@@ -189,22 +195,27 @@ class Game:
                     
                 pass
             elif (curr_player.get_type() == 1):
-                # baseline AI, coin flip choice
-                tmp = input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
-                if (utils.flip_coin() == 1):
+                # baseline AI
+                if verbose:
+                    input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
+                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 5)):
                     curr_cell.set_owner(curr_player_index)
                     curr_player.remove_money(curr_cell.get_price())
-                    input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
+                    if verbose:
+                        input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
                 else:
-                    input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
+                    if verbose:
+                        input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
                 pass
             elif (curr_player.get_type() == 2):
                 # MCTS AI
-                tmp = input("Player " + str(curr_player_index) + " is a MCTS AI, press ENTER to proceed.")
-                mcts.roll_out(self)
+                if verbose:
+                    input("Player " + str(curr_player_index) + " is a MCTS AI, press ENTER to proceed.")
+                mcts.roll_out(self, verbose=verbose)
                 pass
         else:
-            input(" Player " + str(curr_player_index) + " is on a land owned by Player " + str(curr_cell.get_owner()) + ". \n There is no valid actions. Enter to next turn. \n")
+            if verbose:
+                input(" Player " + str(curr_player_index) + " is on a land owned by Player " + str(curr_cell.get_owner()) + ". \n There is no valid actions. Enter to next turn. \n")
         
         if (curr_player.get_money() < 0):
             self.game_over_flag = True
@@ -228,7 +239,7 @@ class Game:
 
     # check each player's stats, calculate total score by hp and gold
     # return the player with the highest score
-    def announce_winner(self):
+    def announce_winner(self, verbose: bool = True) -> int:
         winner = 0
         winner_score = 0
         for i in range(self.player_count):
@@ -236,12 +247,16 @@ class Game:
             if (curr_score > winner_score):
                 winner = i
                 winner_score = curr_score
-        print(self.players_to_string())
-        print("Player " + str(winner) + " wins!")
+        if verbose:
+            print("Player " + str(winner) + " is the winner!")
+        return winner
 
     def get_score(self, player_index) -> float:
         # assume two player only
-        return self.player_list[player_index].get_money() / self.player_list[1-player_index].get_money()
+        if (player_index == 0):
+            return self.player_list[player_index].get_money() - self.player_list[1-player_index].get_money()
+        else:
+            return self.player_list[player_index].get_money() / self.player_list[1-player_index].get_money()
 
     # ======= helpfer functions for state tree ======
     def get_all_sub_games(self) -> list:
