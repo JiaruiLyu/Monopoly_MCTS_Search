@@ -212,7 +212,7 @@ class Game:
                 # MCTS AI
                 if verbose:
                     input("Player " + str(curr_player_index) + " is a MCTS AI, press ENTER to proceed.")
-                mcts.roll_out(self, verbose=verbose)
+                mcts.roll_out(self, MCT_AI_MODE, verbose=verbose)
                 pass
         else:
             if verbose:
