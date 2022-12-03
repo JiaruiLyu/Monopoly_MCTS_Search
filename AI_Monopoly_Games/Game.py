@@ -9,7 +9,7 @@ import mcts
 
 MAX_ROUND = 30
 BASE_LINE_AI_MODE = 1 # 0 for random, 1 for greedy (pick best rent/price property)
-MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
+MCT_AI_MODE = 1 # 0 for random, 1 for uct improved
 
 class Game:
 
