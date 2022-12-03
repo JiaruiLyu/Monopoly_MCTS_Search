@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Step 2: Pick players, for now only two players
     # SINGLE SOURCE OF TRUTH for every info of the game
 
-    grid_size = 20
+    grid_size = 14
     
     print("AUTO Game is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
 
@@ -19,6 +19,7 @@ if __name__ == "__main__":
     MCTS_win_count = 0
     player_zero_score = 0
     player_one_score = 0
+    total_node_count = 0
 
     print("max round: {}".format(Game.MAX_ROUND))
     print("baseline ai mode: {}. (0 for random, 1 for greedy)".format(Game.BASE_LINE_AI_MODE))
@@ -37,6 +38,7 @@ if __name__ == "__main__":
             print("MCTS AI loses! by {} to {}".format(game.player_list[1].money, game.player_list[0].money))
         print("MCTS processed {} nodes in this game".format(game.mct_node_count))
 
+        total_node_count += game.mct_node_count
         player_zero_score += game.player_list[0].money
         player_one_score += game.player_list[1].money
         
@@ -46,6 +48,6 @@ if __name__ == "__main__":
     print("Evaluation: ")
     print("MCTS win rate: {}".format(MCTS_win_count / total_experiments))
     print("MCTS average score: {} / baseline average score: {} = {}".format(player_one_score / total_experiments, player_zero_score / total_experiments, player_one_score / player_zero_score))
-
+    print("MCTS average node count: {}".format(total_node_count / total_experiments))
 
     

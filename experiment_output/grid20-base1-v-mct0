@@ -1,307 +1,408 @@
 Welcome to AUTO Monopoly!
 AUTO Game is ready to start!, grid size = 20, player zero is a Baseline AI, player one is a MCTS AI
+max round: 30
 baseline ai mode: 1. (0 for random, 1 for greedy)
 mcts ai mode: 0. (0 for random, 1 for uct improved)
  ----- Experiment 0 / 100 -----
-MCTS AI wins! by 408 to 169
+MCTS AI wins! by 365 to 102
+MCTS processed 520 nodes in this game
 Experiment 0 finished.
  ----- Experiment 1 / 100 -----
-MCTS AI wins! by 353 to 256
+MCTS AI wins! by 263 to 64
+MCTS processed 440 nodes in this game
 Experiment 1 finished.
  ----- Experiment 2 / 100 -----
-MCTS AI wins! by 404 to 73
+MCTS AI wins! by 365 to 51
+MCTS processed 480 nodes in this game
 Experiment 2 finished.
  ----- Experiment 3 / 100 -----
-MCTS AI wins! by 404 to 276
+MCTS AI wins! by 352 to 70
+MCTS processed 440 nodes in this game
 Experiment 3 finished.
  ----- Experiment 4 / 100 -----
-MCTS AI wins! by 414 to 246
+MCTS AI wins! by 259 to 43
+MCTS processed 440 nodes in this game
 Experiment 4 finished.
  ----- Experiment 5 / 100 -----
-MCTS AI wins! by 344 to 77
+MCTS AI wins! by 270 to 62
+MCTS processed 400 nodes in this game
 Experiment 5 finished.
  ----- Experiment 6 / 100 -----
-MCTS AI wins! by 385 to 166
+MCTS AI wins! by 251 to 248
+MCTS processed 520 nodes in this game
 Experiment 6 finished.
  ----- Experiment 7 / 100 -----
-MCTS AI wins! by 405 to 209
+MCTS AI wins! by 283 to 71
+MCTS processed 400 nodes in this game
 Experiment 7 finished.
  ----- Experiment 8 / 100 -----
-MCTS AI wins! by 391 to 86
+MCTS AI wins! by 300 to 170
+MCTS processed 480 nodes in this game
 Experiment 8 finished.
  ----- Experiment 9 / 100 -----
-MCTS AI wins! by 377 to 183
+MCTS AI wins! by 267 to 10
+MCTS processed 400 nodes in this game
 Experiment 9 finished.
  ----- Experiment 10 / 100 -----
-MCTS AI wins! by 370 to 21
+MCTS AI wins! by 267 to 66
+MCTS processed 520 nodes in this game
 Experiment 10 finished.
  ----- Experiment 11 / 100 -----
-MCTS AI wins! by 403 to 202
+MCTS AI wins! by 315 to 60
+MCTS processed 480 nodes in this game
 Experiment 11 finished.
  ----- Experiment 12 / 100 -----
-MCTS AI wins! by 341 to 82
+MCTS AI wins! by 221 to 49
+MCTS processed 400 nodes in this game
 Experiment 12 finished.
  ----- Experiment 13 / 100 -----
-MCTS AI wins! by 350 to 41
+MCTS AI wins! by 239 to 48
+MCTS processed 520 nodes in this game
 Experiment 13 finished.
  ----- Experiment 14 / 100 -----
-MCTS AI wins! by 352 to 82
+MCTS AI wins! by 308 to 27
+MCTS processed 440 nodes in this game
 Experiment 14 finished.
  ----- Experiment 15 / 100 -----
-MCTS AI wins! by 346 to 91
+MCTS AI wins! by 365 to 36
+MCTS processed 520 nodes in this game
 Experiment 15 finished.
  ----- Experiment 16 / 100 -----
-MCTS AI wins! by 352 to 236
+MCTS AI wins! by 342 to 47
+MCTS processed 440 nodes in this game
 Experiment 16 finished.
  ----- Experiment 17 / 100 -----
-MCTS AI wins! by 344 to 73
+MCTS AI wins! by 245 to 15
+MCTS processed 440 nodes in this game
 Experiment 17 finished.
  ----- Experiment 18 / 100 -----
-MCTS AI wins! by 410 to 101
+MCTS AI wins! by 234 to 107
+MCTS processed 360 nodes in this game
 Experiment 18 finished.
  ----- Experiment 19 / 100 -----
-MCTS AI wins! by 407 to 162
+MCTS AI wins! by 266 to 53
+MCTS processed 560 nodes in this game
 Experiment 19 finished.
  ----- Experiment 20 / 100 -----
-MCTS AI wins! by 408 to 100
+MCTS AI wins! by 296 to 76
+MCTS processed 440 nodes in this game
 Experiment 20 finished.
  ----- Experiment 21 / 100 -----
-MCTS AI wins! by 347 to 190
+MCTS AI wins! by 323 to 59
+MCTS processed 520 nodes in this game
 Experiment 21 finished.
  ----- Experiment 22 / 100 -----
-MCTS AI wins! by 403 to 54
+MCTS AI wins! by 322 to 64
+MCTS processed 400 nodes in this game
 Experiment 22 finished.
  ----- Experiment 23 / 100 -----
-MCTS AI wins! by 405 to 196
+MCTS AI wins! by 216 to 26
+MCTS processed 480 nodes in this game
 Experiment 23 finished.
  ----- Experiment 24 / 100 -----
-MCTS AI wins! by 302 to 64
+MCTS AI wins! by 323 to 57
+MCTS processed 400 nodes in this game
 Experiment 24 finished.
  ----- Experiment 25 / 100 -----
-MCTS AI wins! by 374 to 51
+MCTS AI wins! by 342 to 49
+MCTS processed 440 nodes in this game
 Experiment 25 finished.
  ----- Experiment 26 / 100 -----
-MCTS AI wins! by 388 to 38
+MCTS AI wins! by 203 to 36
+MCTS processed 440 nodes in this game
 Experiment 26 finished.
  ----- Experiment 27 / 100 -----
-MCTS AI wins! by 392 to 34
+MCTS AI wins! by 244 to 83
+MCTS processed 480 nodes in this game
 Experiment 27 finished.
  ----- Experiment 28 / 100 -----
-MCTS AI wins! by 336 to 78
+MCTS AI wins! by 257 to 36
+MCTS processed 360 nodes in this game
 Experiment 28 finished.
  ----- Experiment 29 / 100 -----
-MCTS AI wins! by 373 to 323
+MCTS AI wins! by 318 to 2
+MCTS processed 400 nodes in this game
 Experiment 29 finished.
  ----- Experiment 30 / 100 -----
-MCTS AI wins! by 391 to 154
+MCTS AI wins! by 344 to 34
+MCTS processed 560 nodes in this game
 Experiment 30 finished.
  ----- Experiment 31 / 100 -----
-MCTS AI wins! by 340 to 42
+MCTS AI wins! by 261 to 74
+MCTS processed 480 nodes in this game
 Experiment 31 finished.
  ----- Experiment 32 / 100 -----
-MCTS AI wins! by 354 to 38
+MCTS AI wins! by 288 to 100
+MCTS processed 440 nodes in this game
 Experiment 32 finished.
  ----- Experiment 33 / 100 -----
-MCTS AI wins! by 384 to 109
+MCTS AI wins! by 389 to 154
+MCTS processed 560 nodes in this game
 Experiment 33 finished.
  ----- Experiment 34 / 100 -----
-MCTS AI wins! by 389 to 44
+MCTS AI wins! by 271 to -14
+MCTS processed 360 nodes in this game
 Experiment 34 finished.
  ----- Experiment 35 / 100 -----
-MCTS AI wins! by 338 to 41
+MCTS AI wins! by 259 to 75
+MCTS processed 360 nodes in this game
 Experiment 35 finished.
  ----- Experiment 36 / 100 -----
-MCTS AI wins! by 411 to 59
+MCTS AI wins! by 344 to 93
+MCTS processed 440 nodes in this game
 Experiment 36 finished.
  ----- Experiment 37 / 100 -----
-MCTS AI wins! by 383 to 274
+MCTS AI wins! by 365 to 26
+MCTS processed 520 nodes in this game
 Experiment 37 finished.
  ----- Experiment 38 / 100 -----
-MCTS AI wins! by 349 to 38
+MCTS AI wins! by 311 to 56
+MCTS processed 520 nodes in this game
 Experiment 38 finished.
  ----- Experiment 39 / 100 -----
-MCTS AI wins! by 342 to 150
+MCTS AI wins! by 154 to 12
+MCTS processed 440 nodes in this game
 Experiment 39 finished.
  ----- Experiment 40 / 100 -----
-MCTS AI wins! by 384 to 74
+MCTS AI wins! by 300 to 26
+MCTS processed 440 nodes in this game
 Experiment 40 finished.
  ----- Experiment 41 / 100 -----
-MCTS AI wins! by 361 to 61
+MCTS AI wins! by 235 to 49
+MCTS processed 440 nodes in this game
 Experiment 41 finished.
  ----- Experiment 42 / 100 -----
-MCTS AI wins! by 355 to 53
+MCTS AI loses! by 277 to 291
+MCTS processed 400 nodes in this game
 Experiment 42 finished.
  ----- Experiment 43 / 100 -----
-MCTS AI wins! by 401 to 190
+MCTS AI wins! by 352 to 29
+MCTS processed 480 nodes in this game
 Experiment 43 finished.
  ----- Experiment 44 / 100 -----
-MCTS AI wins! by 389 to 92
+MCTS AI wins! by 362 to 58
+MCTS processed 480 nodes in this game
 Experiment 44 finished.
  ----- Experiment 45 / 100 -----
-MCTS AI wins! by 407 to 174
+MCTS AI wins! by 308 to 36
+MCTS processed 520 nodes in this game
 Experiment 45 finished.
  ----- Experiment 46 / 100 -----
-MCTS AI wins! by 350 to 46
+MCTS AI wins! by 273 to 63
+MCTS processed 400 nodes in this game
 Experiment 46 finished.
  ----- Experiment 47 / 100 -----
-MCTS AI wins! by 387 to 68
+MCTS AI wins! by 255 to 61
+MCTS processed 440 nodes in this game
 Experiment 47 finished.
  ----- Experiment 48 / 100 -----
-MCTS AI wins! by 370 to 72
+MCTS AI wins! by 294 to 30
+MCTS processed 480 nodes in this game
 Experiment 48 finished.
  ----- Experiment 49 / 100 -----
-MCTS AI wins! by 357 to 31
+MCTS AI wins! by 318 to 107
+MCTS processed 360 nodes in this game
 Experiment 49 finished.
  ----- Experiment 50 / 100 -----
-MCTS AI wins! by 370 to 35
+MCTS AI wins! by 377 to 31
+MCTS processed 520 nodes in this game
 Experiment 50 finished.
  ----- Experiment 51 / 100 -----
-MCTS AI wins! by 384 to 28
+MCTS AI wins! by 346 to 64
+MCTS processed 520 nodes in this game
 Experiment 51 finished.
  ----- Experiment 52 / 100 -----
-MCTS AI wins! by 361 to 38
+MCTS AI wins! by 369 to 82
+MCTS processed 520 nodes in this game
 Experiment 52 finished.
  ----- Experiment 53 / 100 -----
-MCTS AI wins! by 322 to 61
+MCTS AI wins! by 328 to 36
+MCTS processed 400 nodes in this game
 Experiment 53 finished.
  ----- Experiment 54 / 100 -----
-MCTS AI wins! by 391 to 302
+MCTS AI wins! by 341 to 59
+MCTS processed 440 nodes in this game
 Experiment 54 finished.
  ----- Experiment 55 / 100 -----
-MCTS AI wins! by 348 to 152
+MCTS AI wins! by 262 to 60
+MCTS processed 400 nodes in this game
 Experiment 55 finished.
  ----- Experiment 56 / 100 -----
-MCTS AI wins! by 364 to 52
+MCTS AI wins! by 290 to 115
+MCTS processed 440 nodes in this game
 Experiment 56 finished.
  ----- Experiment 57 / 100 -----
-MCTS AI wins! by 360 to 58
+MCTS AI wins! by 373 to 23
+MCTS processed 520 nodes in this game
 Experiment 57 finished.
  ----- Experiment 58 / 100 -----
-MCTS AI wins! by 353 to 27
+MCTS AI wins! by 350 to 199
+MCTS processed 520 nodes in this game
 Experiment 58 finished.
  ----- Experiment 59 / 100 -----
-MCTS AI wins! by 335 to 115
+MCTS AI wins! by 329 to 75
+MCTS processed 400 nodes in this game
 Experiment 59 finished.
  ----- Experiment 60 / 100 -----
-MCTS AI wins! by 381 to 239
+MCTS AI wins! by 255 to 202
+MCTS processed 560 nodes in this game
 Experiment 60 finished.
  ----- Experiment 61 / 100 -----
-MCTS AI wins! by 366 to 9
+MCTS AI wins! by 291 to 110
+MCTS processed 480 nodes in this game
 Experiment 61 finished.
  ----- Experiment 62 / 100 -----
-MCTS AI wins! by 400 to 120
+MCTS AI wins! by 332 to 58
+MCTS processed 440 nodes in this game
 Experiment 62 finished.
  ----- Experiment 63 / 100 -----
-MCTS AI wins! by 375 to 91
+MCTS AI wins! by 266 to 71
+MCTS processed 560 nodes in this game
 Experiment 63 finished.
  ----- Experiment 64 / 100 -----
-MCTS AI wins! by 380 to 58
+MCTS AI wins! by 289 to 96
+MCTS processed 440 nodes in this game
 Experiment 64 finished.
  ----- Experiment 65 / 100 -----
-MCTS AI wins! by 387 to 172
+MCTS AI wins! by 254 to 53
+MCTS processed 400 nodes in this game
 Experiment 65 finished.
  ----- Experiment 66 / 100 -----
-MCTS AI wins! by 342 to 129
+MCTS AI wins! by 212 to 49
+MCTS processed 400 nodes in this game
 Experiment 66 finished.
  ----- Experiment 67 / 100 -----
-MCTS AI wins! by 372 to 8
+MCTS AI wins! by 385 to 169
+MCTS processed 520 nodes in this game
 Experiment 67 finished.
  ----- Experiment 68 / 100 -----
-MCTS AI wins! by 343 to 130
+MCTS AI wins! by 361 to 47
+MCTS processed 480 nodes in this game
 Experiment 68 finished.
  ----- Experiment 69 / 100 -----
-MCTS AI wins! by 354 to 59
+MCTS AI wins! by 215 to 51
+MCTS processed 440 nodes in this game
 Experiment 69 finished.
  ----- Experiment 70 / 100 -----
-MCTS AI wins! by 381 to 29
+MCTS AI wins! by 331 to 145
+MCTS processed 520 nodes in this game
 Experiment 70 finished.
  ----- Experiment 71 / 100 -----
-MCTS AI wins! by 395 to 226
+MCTS AI wins! by 345 to 111
+MCTS processed 480 nodes in this game
 Experiment 71 finished.
  ----- Experiment 72 / 100 -----
-MCTS AI wins! by 370 to 71
+MCTS AI wins! by 377 to 12
+MCTS processed 520 nodes in this game
 Experiment 72 finished.
  ----- Experiment 73 / 100 -----
-MCTS AI wins! by 387 to 87
+MCTS AI wins! by 347 to 19
+MCTS processed 480 nodes in this game
 Experiment 73 finished.
  ----- Experiment 74 / 100 -----
-MCTS AI wins! by 380 to 204
+MCTS AI wins! by 177 to 79
+MCTS processed 400 nodes in this game
 Experiment 74 finished.
  ----- Experiment 75 / 100 -----
-MCTS AI wins! by 368 to 49
+MCTS AI wins! by 290 to 111
+MCTS processed 440 nodes in this game
 Experiment 75 finished.
  ----- Experiment 76 / 100 -----
-MCTS AI wins! by 380 to 147
+MCTS AI wins! by 270 to 137
+MCTS processed 400 nodes in this game
 Experiment 76 finished.
  ----- Experiment 77 / 100 -----
-MCTS AI wins! by 317 to 42
+MCTS AI wins! by 242 to 10
+MCTS processed 560 nodes in this game
 Experiment 77 finished.
  ----- Experiment 78 / 100 -----
-MCTS AI wins! by 334 to 46
+MCTS AI wins! by 320 to 211
+MCTS processed 520 nodes in this game
 Experiment 78 finished.
  ----- Experiment 79 / 100 -----
-MCTS AI wins! by 380 to 239
+MCTS AI wins! by 350 to 97
+MCTS processed 480 nodes in this game
 Experiment 79 finished.
  ----- Experiment 80 / 100 -----
-MCTS AI wins! by 383 to 215
+MCTS AI wins! by 345 to 195
+MCTS processed 440 nodes in this game
 Experiment 80 finished.
  ----- Experiment 81 / 100 -----
-MCTS AI wins! by 334 to 44
+MCTS AI wins! by 317 to 222
+MCTS processed 520 nodes in this game
 Experiment 81 finished.
  ----- Experiment 82 / 100 -----
-MCTS AI wins! by 363 to 74
+MCTS AI wins! by 235 to 46
+MCTS processed 440 nodes in this game
 Experiment 82 finished.
  ----- Experiment 83 / 100 -----
-MCTS AI wins! by 396 to 203
+MCTS AI wins! by 385 to 113
+MCTS processed 560 nodes in this game
 Experiment 83 finished.
  ----- Experiment 84 / 100 -----
-MCTS AI wins! by 350 to 320
+MCTS AI wins! by 281 to 48
+MCTS processed 440 nodes in this game
 Experiment 84 finished.
  ----- Experiment 85 / 100 -----
-MCTS AI wins! by 365 to 33
+MCTS AI wins! by 357 to 54
+MCTS processed 480 nodes in this game
 Experiment 85 finished.
  ----- Experiment 86 / 100 -----
-MCTS AI wins! by 358 to 34
+MCTS AI wins! by 268 to 54
+MCTS processed 440 nodes in this game
 Experiment 86 finished.
  ----- Experiment 87 / 100 -----
-MCTS AI wins! by 333 to 34
+MCTS AI wins! by 290 to 24
+MCTS processed 440 nodes in this game
 Experiment 87 finished.
  ----- Experiment 88 / 100 -----
-MCTS AI wins! by 393 to 154
+MCTS AI wins! by 165 to 70
+MCTS processed 400 nodes in this game
 Experiment 88 finished.
  ----- Experiment 89 / 100 -----
-MCTS AI wins! by 416 to 59
+MCTS AI wins! by 334 to 102
+MCTS processed 520 nodes in this game
 Experiment 89 finished.
  ----- Experiment 90 / 100 -----
-MCTS AI wins! by 385 to 63
+MCTS AI wins! by 293 to 22
+MCTS processed 440 nodes in this game
 Experiment 90 finished.
  ----- Experiment 91 / 100 -----
-MCTS AI wins! by 388 to 197
+MCTS AI wins! by 318 to 80
+MCTS processed 400 nodes in this game
 Experiment 91 finished.
  ----- Experiment 92 / 100 -----
-MCTS AI wins! by 400 to 82
+MCTS AI wins! by 326 to 75
+MCTS processed 400 nodes in this game
 Experiment 92 finished.
  ----- Experiment 93 / 100 -----
-MCTS AI wins! by 358 to 23
+MCTS AI wins! by 359 to 335
+MCTS processed 600 nodes in this game
 Experiment 93 finished.
  ----- Experiment 94 / 100 -----
-MCTS AI wins! by 378 to 141
+MCTS AI wins! by 284 to 36
+MCTS processed 440 nodes in this game
 Experiment 94 finished.
  ----- Experiment 95 / 100 -----
-MCTS AI wins! by 377 to 228
+MCTS AI wins! by 312 to 173
+MCTS processed 360 nodes in this game
 Experiment 95 finished.
  ----- Experiment 96 / 100 -----
-MCTS AI wins! by 400 to 71
+MCTS AI wins! by 304 to 63
+MCTS processed 360 nodes in this game
 Experiment 96 finished.
  ----- Experiment 97 / 100 -----
-MCTS AI wins! by 411 to 201
+MCTS AI wins! by 359 to 41
+MCTS processed 480 nodes in this game
 Experiment 97 finished.
  ----- Experiment 98 / 100 -----
-MCTS AI wins! by 407 to 121
+MCTS AI wins! by 306 to 95
+MCTS processed 520 nodes in this game
 Experiment 98 finished.
  ----- Experiment 99 / 100 -----
-MCTS AI wins! by 388 to 26
+MCTS AI wins! by 385 to 38
+MCTS processed 560 nodes in this game
 Experiment 99 finished.
 Evaluation: 
-MCTS win rate: 1.0
-MCTS average score: 372.93 / baseline average score: 111.16 = 3.3548938467074487
+MCTS win rate: 0.99
+MCTS average score: 300.78 / baseline average score: 77.15 = 3.8986390149060273
