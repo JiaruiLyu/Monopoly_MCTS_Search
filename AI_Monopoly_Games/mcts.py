@@ -149,7 +149,7 @@ def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> tuple:
     root.add_child(StateNode(curr_game_b))
 
     if (mct_ai_mode == 0):
-        for i in range(20):
+        for i in range(30):
             node_count += rnd_roll_out_helper(root.children[0], curr_game.player_in_turn, 0)
             node_count += rnd_roll_out_helper(root.children[1], curr_game.player_in_turn, 0)
     elif (mct_ai_mode == 1):

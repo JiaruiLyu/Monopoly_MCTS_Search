@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Step 2: Pick players, for now only two players
     # SINGLE SOURCE OF TRUTH for every info of the game
 
-    grid_size = 10
+    grid_size = 12
     
     print("AUTO Game is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
 
@@ -20,6 +20,13 @@ if __name__ == "__main__":
     player_zero_score = 0
     player_one_score = 0
     total_node_count = 0
+
+    # create a file using grid_size as the name
+    filename1 = "../experiment_output/auto_monopoly_nodecount_{}_Baseline{}_v_MCTS{}.txt".format(grid_size, Game.BASE_LINE_AI_MODE, Game.MCT_AI_MODE)
+    filename2 = "../experiment_output/auto_monopoly_score_{}_Baseline{}_v_MCTS{}.txt".format(grid_size, Game.BASE_LINE_AI_MODE, Game.MCT_AI_MODE)
+    f_count = open(filename1, "w")
+    f_score = open(filename2, "w")
+
 
     print("max round: {}".format(Game.MAX_ROUND))
     print("baseline ai mode: {}. (0 for random, 1 for greedy)".format(Game.BASE_LINE_AI_MODE))
@@ -36,13 +43,20 @@ if __name__ == "__main__":
             print("MCTS AI wins! by {} to {}".format(game.player_list[1].money, game.player_list[0].money))
         else:
             print("MCTS AI loses! by {} to {}".format(game.player_list[1].money, game.player_list[0].money))
-        print("MCTS processed {} nodes in this game".format(game.mct_node_count))
+        # print("MCTS processed {} nodes in this game".format(game.mct_node_count))
+        f_count.write("{}\n".format(game.mct_node_count))
+        f_score.write("{}\n".format(game.player_list[1].money - game.player_list[0].money))
 
         total_node_count += game.mct_node_count
         player_zero_score += game.player_list[0].money
         player_one_score += game.player_list[1].money
+
+        game.print_info()
         
         print("Experiment {} finished.".format(i))
+
+    f_count.close()
+    f_score.close()
 
     # evaluation: winrate, average score...
     print("Evaluation: ")

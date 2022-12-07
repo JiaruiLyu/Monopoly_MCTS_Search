@@ -7,9 +7,9 @@ import copy
 import utils
 import mcts
 
-MAX_ROUND = 30
-BASE_LINE_AI_MODE = 1 # 0 for random, 1 for greedy (pick best rent/price property)
-MCT_AI_MODE = 1 # 0 for random, 1 for uct improved
+MAX_ROUND = 50
+BASE_LINE_AI_MODE = 0 # 0 for random, 1 for greedy (pick best rent/price property)
+MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
 
 class Game:
 
@@ -202,7 +202,7 @@ class Game:
                 # baseline AI
                 if verbose:
                     input("Player " + str(curr_player_index) + " is a baseline AI, press ENTER to proceed.")
-                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and curr_cell.get_price()//curr_cell.get_rent() <= 4 and curr_player.get_money() >= curr_cell.get_price())):
+                if ((BASE_LINE_AI_MODE == 0 and utils.flip_coin() == 1) or (BASE_LINE_AI_MODE == 1 and (curr_cell.get_price()/curr_cell.get_rent() < 2.5) and curr_player.get_money() >= curr_cell.get_price())):
                     curr_cell.set_owner(curr_player_index)
                     curr_player.remove_money(curr_cell.get_price())
                     if verbose:
