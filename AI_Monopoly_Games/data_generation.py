@@ -22,10 +22,8 @@ import game_session_helper
 # 9. the next 1 element represent the turn count
 # 10. the last element represent the score of player 1 at the end of that game
 
-def generate_game_state():
-
+def generate_data(filename: str):
     # create a data storing file
-    filename = "../test_data.csv"
     testfile = open(filename, "w")
 
     # play a random number of rounds
@@ -55,4 +53,5 @@ def generate_game_state():
     pass
 
 if __name__ == "__main__":
-    generate_game_state()
+    generate_data("train_data.csv")
+    generate_data("test_data.csv")
