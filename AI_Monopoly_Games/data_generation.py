@@ -2,6 +2,7 @@ import Game
 import random
 import numpy as np
 import game_session_helper
+import csv
 
 # data file format:
 # 1. 1 x 16 grid
@@ -44,12 +45,14 @@ def generate_data(filename: str):
         # write the output to the 1D array
         while not game.is_game_over(verbose=False):
             game.play_one_turn(verbose=False)
+
         game_data = np.append(game_data, game.get_score(0)) # append the score
         game_data = np.append(game_data, game.get_score(1)) # append the score
-
+        game_data = np.append(game_data, game.announce_winner(verbose=False)) # append the score
         # write the data to the file
         for i in range(len(game_data)):
             testfile.write("{},".format(game_data[i]))
+
         testfile.write("\n")
 
     pass
