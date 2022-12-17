@@ -10,6 +10,7 @@ import mcts
 MAX_ROUND = 50
 BASE_LINE_AI_MODE = 0 # 0 for random, 1 for greedy (pick best rent/price property)
 MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
+NN_AI_MODE = 0 # just one mode
 
 class Game:
 
@@ -70,16 +71,12 @@ class Game:
     # set player type, 0 for human, 1 for Baseline AI, 2 for MCTS AI
     def set_player_type(self, index: int, type: int):
         self.player_list[index].set_type(type)
-    
-    def get_player_in_turn(self) -> int:
-        return self.get_player_in_turn
 
     def has_available_action(self) -> bool:
         curr_cell = self.board_list[self.player_locations[self.player_in_turn]]
         return not curr_cell.has_owner()
 
     # ==== Data related ====
-    # TODO: what about more than 2 players
     # use matrix to represent the board for data processing
     def port_data(self) -> np.ndarray:
         # port all board data to a 3d matrix
@@ -99,7 +96,8 @@ class Game:
             matrix[4][i] = self.board_list[i].get_price()
             matrix[5][i] = self.board_list[i].get_rent()
             matrix[6][i] = self.board_list[i].get_lucky_box_amount()
-        return matrix
+
+        return matrix 
 
     # ===== Printing Functions =====
     # Print all cells in a circular order, each cell is 10 characters wide
@@ -227,6 +225,12 @@ class Game:
                     if verbose:
                         print(" Processed node count in this turn: " + str(node_count))
                         input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
+                pass
+
+            elif (curr_player.get_type() == 3):
+                # NN AI
+                # do nothing for now
+
                 pass
         else:
             if verbose:

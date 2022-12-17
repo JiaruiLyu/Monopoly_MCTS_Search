@@ -4,7 +4,7 @@ class Player:
       self.id = id
       self.money = 400
       self.hp = 0 # not used for now
-      self.type = type # 0 for human, 1 for Baseline AI, 2 for MCTS AI
+      self.type = type # 0 for human, 1 for Baseline AI, 2 for MCTS AI, 3 for NN AI
 
    def get_type_str(self) -> str:
       result = ""
