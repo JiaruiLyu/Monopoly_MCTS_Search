@@ -4,7 +4,7 @@ import numpy as np
 import game_session_helper
 
 # data file format:
-# 1. 16x16 grid
+# 1. 1 x 16 grid
 # 2. 2 players
 # 3. AI always player 1 (second)
 # 4. each row represent one data point (a random game state (10-20 turns))
