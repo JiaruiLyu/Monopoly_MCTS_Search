@@ -15,7 +15,7 @@ class Player:
       elif (self.type == 2):
          result += "MCTS AI"
       else:
-         result += "Unknown"
+         result += "MCTS+NN AI"
       # pad
       result += " " * (15 - len(result))
       return result

@@ -7,10 +7,10 @@ import copy
 import utils
 import mcts
 
-MAX_ROUND = 50
+MAX_ROUND = 30
 BASE_LINE_AI_MODE = 0 # 0 for random, 1 for greedy (pick best rent/price property)
 MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
-NN_AI_MODE = 0 # just one mode
+NN_AI_MODE = 0 # 0 for zzhang, 1 for jlyu
 
 class Game:
 
@@ -21,6 +21,7 @@ class Game:
         self.grid_size = grid_size
         self.player_in_turn = 0  # 0 means player 0's turn, 1 means player 1's turn, etc.
         self.mct_node_count = 0
+        self.mct_nn_model = None
 
         self.player_list = [] # list of Player objects
         self.board_list = [] # list of BoardCell objects
@@ -229,7 +230,23 @@ class Game:
 
             elif (curr_player.get_type() == 3):
                 # NN AI
-                # do nothing for now
+                if verbose:
+                    input("Player " + str(curr_player_index) + " is a NN AI, press ENTER to proceed.")
+                if (NN_AI_MODE == 0):
+                    decision, node_count = mcts.roll_out_NN_zz(self, self.mct_nn_model, verbose=verbose)
+                else:
+                    decision, node_count = mcts.roll_out_NN_jl(self, self.mct_nn_model, verbose=verbose)
+                self.mct_node_count += node_count
+                if decision:
+                    curr_cell.set_owner(curr_player_index)
+                    curr_player.remove_money(curr_cell.get_price())
+                    if verbose:
+                        print(" Processed node count in this turn: " + str(node_count))
+                        input(" Player " + str(curr_player_index) + " purchased this land for " + str(curr_cell.get_price()) + ". Enter to next turn.\n")
+                else:
+                    if verbose:
+                        print(" Processed node count in this turn: " + str(node_count))
+                        input(" Player " + str(curr_player_index) + " decided not to purchase this land. Enter to next turn.\n")
 
                 pass
         else:

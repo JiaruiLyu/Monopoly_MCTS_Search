@@ -1,5 +1,5 @@
 import game_session_helper
-import Game
+import Game as Game
 
 # This file is for automating whole game sessions for AI training
 
@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Step 2: Pick players, for now only two players
     # SINGLE SOURCE OF TRUTH for every info of the game
 
-    grid_size = 12
+    grid_size = 18
     
     print("AUTO Game is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         player_zero_score += game.player_list[0].money
         player_one_score += game.player_list[1].money
 
-        game.print_info()
+        # game.print_info()
         
         print("Experiment {} finished.".format(i))
 

@@ -1,4 +1,5 @@
 from Game import *
+import nn_zzhang96
 
 def game_setup():
 
@@ -18,25 +19,29 @@ def game_setup():
 	
 	# Step 2: Pick players, for now only two players
 	while (True):
-		prompt = "Please choose player type for PLAYER ZERO: A: Human, B: Baseline AI, C: MCTS AI \n"
+		prompt = "Please choose player type for PLAYER ZERO: A: Human, B: Baseline AI, C: MCTS AI, D: NN+MCTS AI\n"
 		player_zero_choice = input(prompt)
 		choice_int = min(abs(ord(player_zero_choice) - ord('A')), abs(ord(player_zero_choice) - ord('a')))
-		if (choice_int < 0 or choice_int > 2):
+		if (choice_int < 0 or choice_int > 3):
 			print("Invalid input, please try again.")
 		else:
 			player_zero_type = choice_int
 			game.set_player_type(0, player_zero_type)
+			if (player_zero_type == 3):
+				game.mct_nn_model = nn_zzhang96.train_model()
 			break
 	
 	while (True):
-		prompt = "Please choose player type for PLAYER ONE: A: Human, B: Baseline AI, C: MCTS AI \n"
+		prompt = "Please choose player type for PLAYER ONE: A: Human, B: Baseline AI, C: MCTS AI, D: NN+MCTS AI \n"
 		player_one_choice = input(prompt)
 		choice_int = min(abs(ord(player_one_choice) - ord('A')), abs(ord(player_one_choice) - ord('a')))
-		if (choice_int < 0 or choice_int > 2):
+		if (choice_int < 0 or choice_int > 3):
 			print("Invalid input, please try again.")
 		else:
 			player_one_type = choice_int
 			game.set_player_type(1, player_one_type)
+			if (player_zero_type == 3):
+				game.mct_nn_model = nn_zzhang96.train_model()
 			break
 	return game
 pass

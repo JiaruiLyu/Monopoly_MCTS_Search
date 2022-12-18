@@ -12,11 +12,13 @@ To run user interactive mode, run the following command
 python3 AI_Monopoly_Games/play_monopoly.py
 ```
 
-To run experiments, run the following command
+To run MCTS & Baseline experiments, run the following command
 
 ```shell
 python3 AI_Monopoly_Games/auto_monopoly.py
 ```
+
+
 
 ## AI Modes
 There are two Baseline AI modes and two MCT modes
