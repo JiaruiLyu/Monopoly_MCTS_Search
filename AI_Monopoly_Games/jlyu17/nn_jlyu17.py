@@ -33,14 +33,7 @@ class Net(nn.Module):
         y_pred = self.linear5(y_pred)
         return y_pred
 
-# read from the data generated (check data_generation.py for more info) 
-if __name__ == "__main__":
-
-    train_data = numpy.genfromtxt('train_data.csv', delimiter=',')
-    test_data = numpy.genfromtxt('test_data.csv', delimiter=',')
-    train_data = numpy.delete(train_data,118,axis=1)
-    test_data = numpy.delete(test_data,118,axis=1)
-
+def configure_data(train_data:list, test_data:list) -> int:
     ####### Start of updating dataset
     # land_price_rent_rate_train is a 16*500 array
     # e.g. land_price_rent_rate_train[14][499] represent the 15th grid's last data's ratio of land price / land rent
@@ -92,7 +85,6 @@ if __name__ == "__main__":
         optimizer.zero_grad()
         
         loss.backward()
-
         optimizer.step()
 
     ###Test
@@ -111,11 +103,23 @@ if __name__ == "__main__":
     for i in range(denominator):
         if real_result[i] == predict_result[i]:
             numerator += 1
+   
+    left = pd.DataFrame(predictions)
+    right = pd.DataFrame(predict_result)
+    result = pd.concat([left, right], axis=1)
+    result.to_csv('predictions_and_predicted_player.csv', header=False, index=False)
+
     # Use the model to make predictions on the test dataset, and get the accuracy
-    print("the accuracy of the predictions:", numerator/denominator)
+    #print("the accuracy of the predictions:", numerator/denominator)
+    return numerator/denominator
 
-    pd.DataFrame(predictions).to_csv('predict.csv', header=False, index=False)
-    pd.DataFrame(predict_result).to_csv('newpredict.csv', header=False, index=False)
+# read from the data generated (check data_generation.py for more info) 
+if __name__ == "__main__":
 
-
-
+    train_data = numpy.genfromtxt('train_data.csv', delimiter=',')
+    test_data = numpy.genfromtxt('test_data.csv', delimiter=',')
+    train_data = numpy.delete(train_data,118,axis=1)
+    test_data = numpy.delete(test_data,118,axis=1)
+    
+    configure_data(train_data, test_data)
+    
