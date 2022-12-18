@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import pandas as pd
 import csv
+import matplotlib.pyplot as plt
 
 class Net(nn.Module):
   
@@ -67,24 +68,29 @@ def configure_data(train_data:list, test_data:list) -> int:
     # Loss
     criterion = nn.MSELoss(reduction='mean')
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1.4e-6)
 
     losses = []
+    losses2 = []
 
-    # Train 500 rounds
-    for t in range(500):
+    # Train 1000 rounds
+    for t in range(1000):
         y_pred = model(train_features)
-        
         loss = criterion(y_pred, train_labels)
         # print(t, loss.item())
         losses.append(loss.item())
-        
-        if torch.isnan(loss):
+
+        y_pred2 = model(test_features)
+        loss2 = criterion(y_pred2, train_labels)
+        losses2.append(loss2.item())
+
+        if torch.isnan(loss) or torch.isnan(loss2):
             break
         
         optimizer.zero_grad()
         
         loss.backward()
+
         optimizer.step()
 
     ###Test
@@ -108,6 +114,11 @@ def configure_data(train_data:list, test_data:list) -> int:
     right = pd.DataFrame(predict_result)
     result = pd.concat([left, right], axis=1)
     result.to_csv('predictions_and_predicted_player.csv', header=False, index=False)
+   
+    plt.plot(losses, 'b-')
+    plt.plot(losses2, 'r-')
+    plt.legend(['Train', 'Test'], loc='upper right')
+    plt.show()
 
     # Use the model to make predictions on the test dataset, and get the accuracy
     #print("the accuracy of the predictions:", numerator/denominator)
@@ -122,4 +133,3 @@ if __name__ == "__main__":
     test_data = numpy.delete(test_data,118,axis=1)
     
     configure_data(train_data, test_data)
-    
