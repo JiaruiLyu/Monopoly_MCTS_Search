@@ -34,7 +34,7 @@ class Net(nn.Module):
         y_pred = self.linear5(y_pred)
         return y_pred
 
-def configure_data(train_data:list, test_data:list) -> int:
+def configure_data(train_data:list, test_data:list) -> Net:
     ####### Start of updating dataset
     # land_price_rent_rate_train is a 16*500 array
     # e.g. land_price_rent_rate_train[14][499] represent the 15th grid's last data's ratio of land price / land rent
@@ -115,14 +115,14 @@ def configure_data(train_data:list, test_data:list) -> int:
     result = pd.concat([left, right], axis=1)
     result.to_csv('predictions_and_predicted_player.csv', header=False, index=False)
    
-    plt.plot(losses, 'b-')
-    plt.plot(losses2, 'r-')
-    plt.legend(['Train', 'Test'], loc='upper right')
-    plt.show()
+    # plt.plot(losses, 'b-')
+    # plt.plot(losses2, 'r-')
+    # plt.legend(['Train', 'Test'], loc='upper right')
+    # plt.show()
 
     # Use the model to make predictions on the test dataset, and get the accuracy
     #print("the accuracy of the predictions:", numerator/denominator)
-    return numerator/denominator
+    return model
 
 # read from the data generated (check data_generation.py for more info) 
 if __name__ == "__main__":
@@ -133,3 +133,4 @@ if __name__ == "__main__":
     test_data = numpy.delete(test_data,118,axis=1)
     
     configure_data(train_data, test_data)
+
