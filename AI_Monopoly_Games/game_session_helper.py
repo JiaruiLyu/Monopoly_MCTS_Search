@@ -6,13 +6,13 @@ def game_setup():
 	game: Game
     # Step 1: Choose game size
 	while (True):
-		prompt = "Please choose the size of the game board: A: 12, B: 14, C: 16, D: 18, E: 20: \n"
+		prompt = "Please choose the size of the game board: A: 12, B: 16, C: 20, D: 24, E: 28: \n"
 		game_size_choice = input(prompt)
 		choice_int = min(abs(ord(game_size_choice) - ord('A')), abs(ord(game_size_choice) - ord('a')))
 		if (choice_int < 0 or choice_int > 4):
 			print("Invalid input, please try again.")
 		else:
-			game_size = 12 + 2 * choice_int
+			game_size = 12 + 4 * choice_int
 			print("You have chosen a game board of size {}.".format(game_size))
 			game = Game(grid_size=game_size)
 			break
@@ -27,8 +27,8 @@ def game_setup():
 		else:
 			player_zero_type = choice_int
 			game.set_player_type(0, player_zero_type)
-			if (player_zero_type == 3):
-				game.mct_nn_model = nn_zzhang96.train_model()
+			if (player_zero_type > 2):
+				game.set_nn_model(nn_zzhang96.train_model())
 			break
 	
 	while (True):
@@ -40,8 +40,8 @@ def game_setup():
 		else:
 			player_one_type = choice_int
 			game.set_player_type(1, player_one_type)
-			if (player_zero_type == 3):
-				game.mct_nn_model = nn_zzhang96.train_model()
+			if (player_zero_type > 2):
+				game.set_nn_model(nn_zzhang96.train_model())
 			break
 	return game
 pass

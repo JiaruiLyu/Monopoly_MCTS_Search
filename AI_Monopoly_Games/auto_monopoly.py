@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # Step 2: Pick players, for now only two players
     # SINGLE SOURCE OF TRUTH for every info of the game
 
-    grid_size = 18
+    grid_size = 8
     
     print("AUTO Game is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
 

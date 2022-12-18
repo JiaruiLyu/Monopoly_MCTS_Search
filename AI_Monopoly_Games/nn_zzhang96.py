@@ -90,7 +90,7 @@ def game_to_model_input(game):
 def run_experiments(nn_model):
     grid_size = 16
     
-    print("Experiment is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a MCTS AI".format(grid_size))
+    print("Experiment is ready to start!, grid size = {}, player zero is a Baseline AI, player one is a NN + MCTS AI".format(grid_size))
 
     total_experiments = 100
     MCTS_win_count = 0
@@ -164,7 +164,7 @@ def run_experiments_jiarui(nn_model):
 
     print("max round: {}".format(Game.MAX_ROUND))
     print("baseline ai mode: {}. (0 for random, 1 for greedy)".format(Game.BASE_LINE_AI_MODE))
-    print("mcts ai: NN".format(Game.MCT_AI_MODE))
+    print("mcts ai: NN".format(Game.NN_AI_MODE))
 
     # Step 3: Start the game
     for i in range (total_experiments):
@@ -173,8 +173,8 @@ def run_experiments_jiarui(nn_model):
         game.mct_nn_model = nn_model
 
         while (not game.is_game_over(verbose=False)):
-            game.play_one_turn(verbose=True) # will call the user or ai to play a turn
-        if (game.announce_winner(verbose=True) == 1):
+            game.play_one_turn(verbose=False) # will call the user or ai to play a turn
+        if (game.announce_winner(verbose=False) == 1):
             MCTS_win_count += 1
             print("MCTS AI wins! by {} to {}".format(game.player_list[1].money, game.player_list[0].money))
         else:
@@ -206,18 +206,18 @@ if __name__ == "__main__":
     
 
     # Next step: use the trained model to run MCTS, run experiments
-    game = game_session_helper.game_auto_setup(grid_size=16, player_zero_type=1, player_one_type=3)
+    # game = game_session_helper.game_auto_setup(grid_size=16, player_zero_type=1, player_one_type=3)
 
-    # run Zhuowei's model anx experiment
-    # nn_model = train_model()
-    # run_experiments(nn_model)
+    # 1 run Zhuowei's model anx experiment
+    nn_model = train_model()
+    run_experiments(nn_model)
 
 
-    # run Jiarui's model and experiment
-    train_data = np.genfromtxt('train_data.csv', delimiter=',')
-    test_data = np.genfromtxt('test_data.csv', delimiter=',')
-    train_data = np.delete(train_data,118,axis=1)
-    test_data = np.delete(test_data,118,axis=1)
+    # 2 run Jiarui's model and experiment
+    # train_data = np.genfromtxt('train_data.csv', delimiter=',')
+    # test_data = np.genfromtxt('test_data.csv', delimiter=',')
+    # train_data = np.delete(train_data,118,axis=1)
+    # test_data = np.delete(test_data,118,axis=1)
     
-    nn_model_2 = nn_jlyu17.configure_data(train_data, test_data)
-    run_experiments_jiarui(nn_model_2)
+    # nn_model_2 = nn_jlyu17.configure_data(train_data, test_data)
+    # run_experiments_jiarui(nn_model_2)

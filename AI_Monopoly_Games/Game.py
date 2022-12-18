@@ -3,6 +3,7 @@ from BoardCell import BoardCell
 import random
 import numpy as np
 import copy
+import nn_zzhang96
 
 import utils
 import mcts
@@ -10,7 +11,7 @@ import mcts
 MAX_ROUND = 30
 BASE_LINE_AI_MODE = 0 # 0 for random, 1 for greedy (pick best rent/price property)
 MCT_AI_MODE = 0 # 0 for random, 1 for uct improved
-NN_AI_MODE = 1 # 0 for zzhang, 1 for jlyu
+NN_AI_MODE = 0 # 0 for zzhang, 1 for jlyu
 
 class Game:
 
@@ -21,7 +22,7 @@ class Game:
         self.grid_size = grid_size
         self.player_in_turn = 0  # 0 means player 0's turn, 1 means player 1's turn, etc.
         self.mct_node_count = 0
-        self.mct_nn_model = None
+        self.mct_nn_model = nn_zzhang96.train_model()
 
         self.player_list = [] # list of Player objects
         self.board_list = [] # list of BoardCell objects
@@ -76,6 +77,9 @@ class Game:
     def has_available_action(self) -> bool:
         curr_cell = self.board_list[self.player_locations[self.player_in_turn]]
         return not curr_cell.has_owner()
+
+    def set_nn_model(self, model):
+        self.mct_nn_model = model
 
     # ==== Data related ====
     # use matrix to represent the board for data processing

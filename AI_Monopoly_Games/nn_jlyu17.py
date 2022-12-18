@@ -130,18 +130,9 @@ def configure_data(train_data:list, test_data:list) -> Net:
 
 def predict(model: Net, game: Game) ->int:
     ### define game_data
-    for i in range (random.randint(1, 50)):
-        game.play_one_turn(verbose=False)
-        if (game.is_game_over(verbose=False)):
-            break
-    
     game_data = game.port_data().flatten() # flatten the matrix into a 1D array
-   
-    # write the output to the 1D array
-    while not game.is_game_over(verbose=False):
-        game.play_one_turn(verbose=False)
 
-    game_data = numpy.append(game_data, game.announce_winner(verbose=False)) # append the score
+    game_data = numpy.append(game_data, 1) # append the score
     ### end of game_data
 
     land_price_rent_rate = []
@@ -152,9 +143,7 @@ def predict(model: Net, game: Game) ->int:
     land_price_rent_rate.append(game_data[96])
 
     feature = torch.tensor(land_price_rent_rate, dtype=torch.float)
-    print("GGGGG")
     pr = model(feature).detach().numpy()
-    print("GGGGG")
 
     return pr
 
