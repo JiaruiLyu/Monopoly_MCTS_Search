@@ -173,8 +173,8 @@ def run_experiments_jiarui(nn_model):
         game.mct_nn_model = nn_model
 
         while (not game.is_game_over(verbose=False)):
-            game.play_one_turn(verbose=False) # will call the user or ai to play a turn
-        if (game.announce_winner(verbose=False) == 1):
+            game.play_one_turn(verbose=True) # will call the user or ai to play a turn
+        if (game.announce_winner(verbose=True) == 1):
             MCTS_win_count += 1
             print("MCTS AI wins! by {} to {}".format(game.player_list[1].money, game.player_list[0].money))
         else:
@@ -203,15 +203,17 @@ def run_experiments_jiarui(nn_model):
 
 
 if __name__ == "__main__":
-    # nn_model = train_model()
+    
 
     # Next step: use the trained model to run MCTS, run experiments
     game = game_session_helper.game_auto_setup(grid_size=16, player_zero_type=1, player_one_type=3)
 
+    # run Zhuowei's model anx experiment
+    # nn_model = train_model()
     # run_experiments(nn_model)
 
 
-    # Help run Jiarui's model and experiment
+    # run Jiarui's model and experiment
     train_data = np.genfromtxt('train_data.csv', delimiter=',')
     test_data = np.genfromtxt('test_data.csv', delimiter=',')
     train_data = np.delete(train_data,118,axis=1)

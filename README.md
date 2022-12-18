@@ -12,12 +12,17 @@ To run user interactive mode, run the following command
 python3 AI_Monopoly_Games/play_monopoly.py
 ```
 
-To run MCTS & Baseline experiments, run the following command
+To run MCTS vs Baseline experiments, run the following command
 
 ```shell
 python3 AI_Monopoly_Games/auto_monopoly.py
 ```
 
+To run MCTS + NN vs Baseline experiments, run the following command. (This file's main function contains the experiments for both models)
+
+```shell
+python3 AI_Monopoly_Games/nn_zzhang96.py
+```
 
 
 ## AI Modes

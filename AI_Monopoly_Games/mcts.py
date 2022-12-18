@@ -240,7 +240,6 @@ def roll_out_NN_zz(game, nn_model, verbose: bool = True) -> tuple:
     else:
         return (1, node_count)
 
-
 def NN_rollout_helper_jl(curr_node, ancester, node_count, nn_model):
     # base case
     if (curr_node.game_state.is_game_over(verbose=False)):
@@ -255,7 +254,7 @@ def NN_rollout_helper_jl(curr_node, ancester, node_count, nn_model):
     curr_node.populate_children()
     next_node = curr_node.get_random_child()
 
-    NN_rollout_helper_jl(next_node, ancester, node_count, nn_model)
+    NN_rollout_helper_zz(next_node, ancester, node_count, nn_model)
 
     new_total_score = curr_node.get_utility() * curr_node.get_visit_count() + next_node.get_utility()
     curr_node.increment_visit_count()
@@ -268,11 +267,7 @@ def NN_rollout_helper_jl(curr_node, ancester, node_count, nn_model):
     curr_node.set_score(new_score)
 
     # the model always gives the estimate for the current player
-    nn_estimate_result = nn_jlyu17.predict(nn_model, curr_node.game_state)
-    if (ancester == nn_estimate_result):
-        nn_estimate_score = 1 * curr_node.game_state.get_score(ancester)
-    else:
-        nn_estimate_score = -1 * curr_node.game_state.get_score(ancester)
+    nn_estimate_score = nn_jlyu17.predict(nn_model, curr_node.game_state)
     curr_node.set_utility((new_score + nn_estimate_score) / 2) # average of the two scores
 
     return node_count+1
