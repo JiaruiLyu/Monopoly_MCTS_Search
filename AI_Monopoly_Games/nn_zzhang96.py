@@ -214,6 +214,7 @@ if __name__ == "__main__":
 
 
     # 2 run Jiarui's model and experiment
+    # ==== MAKE SURE TO CHANGE THE Game.py top secion NN_AI_MODE to 1 ====
     # train_data = np.genfromtxt('train_data.csv', delimiter=',')
     # test_data = np.genfromtxt('test_data.csv', delimiter=',')
     # train_data = np.delete(train_data,118,axis=1)
