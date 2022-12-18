@@ -5,6 +5,7 @@ import torch.nn as nn
 import pandas as pd
 import csv
 import matplotlib.pyplot as plt
+import Game
 
 class Net(nn.Module):
   
@@ -123,6 +124,34 @@ def configure_data(train_data:list, test_data:list) -> Net:
     # Use the model to make predictions on the test dataset, and get the accuracy
     #print("the accuracy of the predictions:", numerator/denominator)
     return model
+
+def predict(model: Net, game: Game) ->int:
+    ### define game_data
+    for i in range (random.randint(1, 50)):
+        game.play_one_turn(verbose=False)
+        if (game.is_game_over(verbose=False)):
+            break
+    
+    game_data = game.port_data().flatten() # flatten the matrix into a 1D array
+   
+    # write the output to the 1D array
+    while not game.is_game_over(verbose=False):
+        game.play_one_turn(verbose=False)
+
+    game_data = np.append(game_data, game.get_score(0)) # append the score
+    game_data = np.append(game_data, game.get_score(1)) # append the score
+    game_data = np.append(game_data, game.announce_winner(verbose=False)) # append the score
+    ### end of game_data
+
+    land_price_rent_rate = []
+    for i in range (0, 16):
+        temp_col = numpy.around(game_data[:,64+i] / game_data[:,80+i], 4)
+        land_price_rent_rate.append(temp_col)
+    
+    feature = torch.tensor(game_data[:game_data.shape[0]], dtype=torch.float)
+    pr = model(feature).detach().numpy()
+
+    return feature
 
 # read from the data generated (check data_generation.py for more info) 
 if __name__ == "__main__":
