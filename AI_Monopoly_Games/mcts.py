@@ -170,3 +170,61 @@ def roll_out(game, mct_ai_mode = 0, verbose: bool = True) -> tuple:
         return (0, node_count)
     else:
         return (1, node_count)
+
+def NN_rollout_helper(curr_node, ancester, depth, node_count, my_nn):
+    # base case
+    if (curr_node.game_state.is_game_over(verbose=False)):
+        score = curr_node.game_state.get_score(ancester)
+        curr_node.increment_visit_count()
+        curr_node.set_score(score)
+        curr_node.set_utility(score)
+        return node_count+1
+
+    # pick child based on NN
+    curr_node.populate_children()
+    
+
+    rnd_roll_out_helper(next_node, ancester, node_count)
+
+    new_total = curr_node.get_score() * curr_node.get_visit_count() + next_node.get_score()
+    curr_node.increment_visit_count()
+    new_score = new_total/curr_node.get_visit_count()
+    curr_node.set_score(new_score)
+    curr_node.set_utility(new_score)
+
+    return node_count+1
+    
+# Monte Carlo Tree Search using Neural Network
+# Returns the best action after a certain number of rollouts, and the number of nodes visited
+def roll_out_NN(game, verbose: bool = True, my_nn) -> tuple:
+
+    curr_game = copy.deepcopy(game) # run roll_out on this copy so it does not mess up the actual game data.
+
+    root = StateNode(curr_game)
+
+    # at this point, the AI has two possible moves, purchase land or do nothing, run roll out on both
+    # add the two children to the root node
+    # and run roll_out_helper on each child
+
+    node_count = 0
+    root.add_child(StateNode(curr_game))
+    curr_game_b = copy.deepcopy(game)
+    curr_game_b.purchase_land()
+    root.add_child(StateNode(curr_game_b))
+
+    for i in range(30):
+        node_count += NN_rollout_helper(root.children[0], curr_game.player_in_turn, 0, my_nn)
+        node_count += NN_rollout_helper(root.children[1], curr_game.player_in_turn, 0, my_nn)
+
+    # choose the child that has the maximum utility
+    
+    a = root.children[0].get_utility()
+    b = root.children[1].get_utility()
+
+    if verbose:
+        print("roll_out OVER")
+
+    if (a > b) :
+        return (0, node_count)
+    else:
+        return (1, node_count)

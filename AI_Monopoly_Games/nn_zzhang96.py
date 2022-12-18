@@ -17,7 +17,7 @@ class LinNet(tr.nn.Module):
 
         return y
 
-if __name__ == "__main__":
+def train_model():
     tmp_data = np.genfromtxt('data_zzhang96/train_data.csv', delimiter=',')
     tmp_testing_data = np.genfromtxt('data_zzhang96/test_data.csv', delimiter=',')
     input_data = tmp_data[:, 0:115].reshape(-1, 115)
@@ -65,3 +65,11 @@ if __name__ == "__main__":
     plt.plot(curves[1], label='test')
     plt.legend()
     plt.show()
+
+    return my_nn
+
+if __name__ == "__main__":
+    nn_model = train_model()
+
+    # Next step: use the trained model to run MCTS
+    
