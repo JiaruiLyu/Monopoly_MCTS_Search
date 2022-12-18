@@ -255,7 +255,7 @@ def NN_rollout_helper_jl(curr_node, ancester, node_count, nn_model):
     curr_node.populate_children()
     next_node = curr_node.get_random_child()
 
-    NN_rollout_helper_jl(next_node, ancester, depth+1, node_count, nn_model)
+    NN_rollout_helper_jl(next_node, ancester, node_count, nn_model)
 
     new_total_score = curr_node.get_utility() * curr_node.get_visit_count() + next_node.get_utility()
     curr_node.increment_visit_count()
